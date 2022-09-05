@@ -1,0 +1,35 @@
+includes:
+    - ./vendor/nunomaduro/larastan/extension.neon
+
+parameters:
+
+    paths:
+        - app
+        - vendor/kalnoy/nestedset
+
+    # The level 8 is the highest level
+    level: 8
+
+    ignoreErrors:
+        - '#Unsafe usage of new static#'
+
+    excludePaths:
+        - ./app/Traits/HasRoleAndPermission.php
+        - ./app/Traits/HasStateMachines.php
+        - ./app/Nova/Resource.php
+
+    checkMissingIterableValueType: false
+
+    checkModelProperties: true
+
+    noModelMake: false
+
+    databaseMigrationsPath:
+        - ./database/migrations
+
+    editorUrl: 'vscode://file/%%file%%:%%line%%'
+
+    parallel:
+        jobSize:   8
+        maximumNumberOfProcesses: 8
+        minimumNumberOfJobsPerProcess: 4

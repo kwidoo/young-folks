@@ -16,3 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::post('/', function () {
+    $botman = resolve('botman');
+    $botman->hears('hi', function ($bot) {
+        $bot->reply('Hello!');
+    });
+    $botman->listen();
+    return response()->json(['ok' => true], 200);
+});
