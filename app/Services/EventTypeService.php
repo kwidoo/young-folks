@@ -4,5 +4,7 @@ namespace App\Services;
 
 class EventTypeService
 {
-    public function create
+    public function create()
+    {
+    }
 }
