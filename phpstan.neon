@@ -5,7 +5,6 @@ parameters:
 
     paths:
         - app
-        - vendor/kalnoy/nestedset
 
     # The level 8 is the highest level
     level: 8
@@ -17,6 +16,7 @@ parameters:
         - ./app/Traits/HasRoleAndPermission.php
         - ./app/Traits/HasStateMachines.php
         - ./app/Nova/Resource.php
+        - ./vendor
 
     checkMissingIterableValueType: false
 

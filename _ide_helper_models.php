@@ -12,6 +12,33 @@
 
 namespace App\Models{
 /**
+ * App\Models\Bot
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Chat[] $chats
+ * @property-read int|null $chats_count
+ * @method static \DefStudio\Telegraph\Database\Factories\TelegraphBotFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bot newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Bot newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Bot query()
+ */
+	class Bot extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\Chat
+ *
+ * @property-read \App\Models\Bot|null $bot
+ * @method static \DefStudio\Telegraph\Database\Factories\TelegraphChatFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Chat newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Chat newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Chat query()
+ */
+	class Chat extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\TelegramUpdate
  *
  * @property int $id
@@ -50,11 +77,14 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\Permission\Models\Permission[] $permissions
+ * @property-read int|null $permissions_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Sanctum\PersonalAccessToken[] $tokens
  * @property-read int|null $tokens_count
  * @method static \Database\Factories\UserFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|User permission($permissions)
  * @method static \Illuminate\Database\Eloquent\Builder|User query()
  * @method static \Illuminate\Database\Eloquent\Builder|User whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereEmail($value)
@@ -66,5 +96,42 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  */
 	class User extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\YFEvent
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\YFEventSchedule[] $event_schedule
+ * @property-read int|null $event_schedule_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\YFEventType[] $event_type
+ * @property-read int|null $event_type_count
+ * @method static \Illuminate\Database\Eloquent\Builder|YFEvent newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|YFEvent newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|YFEvent query()
+ */
+	class YFEvent extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\YFEventSchedule
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|YFEventSchedule newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|YFEventSchedule newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|YFEventSchedule query()
+ */
+	class YFEventSchedule extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\YFEventType
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|YFEventType newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|YFEventType newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|YFEventType query()
+ */
+	class YFEventType extends \Eloquent {}
 }
 
