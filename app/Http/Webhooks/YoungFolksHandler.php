@@ -4,6 +4,8 @@ namespace App\Http\Webhooks;
 
 use DefStudio\Telegraph\DTO\InlineQuery;
 use DefStudio\Telegraph\Handlers\WebhookHandler;
+use DefStudio\Telegraph\Keyboard\ReplyButton;
+use DefStudio\Telegraph\Keyboard\Keyboard;
 use Illuminate\Support\Stringable;
 
 class YoungFolksHandler extends WebhookHandler
@@ -11,7 +13,12 @@ class YoungFolksHandler extends WebhookHandler
     public function hi(): void
     {
         info('callback', [$this->data]);
-        $this->chat->html('Hi there!')->send();
+        $this->chat->html('Hi there!')->keyboard(Keyboard::make()
+            ->buttons([
+                ReplyButton::make('foo')->requestPoll(),
+                ReplyButton::make('bar')->requestQuiz(),
+                ReplyButton::make('baz')->webApp('https://webapp.dev'),
+            ]))->send();
     }
 
     protected function handleChatMessage(Stringable $text): void
