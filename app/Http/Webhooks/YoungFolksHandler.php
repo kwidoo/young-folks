@@ -15,9 +15,9 @@ class YoungFolksHandler extends WebhookHandler
         info('callback', [$this->data]);
         $this->chat->html('Hi there!')->keyboard(Keyboard::make()
             ->buttons([
-                Button::make('foo')->requestPoll(),
-                Button::make('bar')->requestQuiz(),
-                Button::make('baz')->webApp('https://webapp.dev'),
+                Button::make('foo'),
+                Button::make('bar'),
+                Button::make('baz'),
             ]))->send();
     }
 
