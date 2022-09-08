@@ -13,7 +13,7 @@ class YoungFolksHandler extends WebhookHandler
     public function hi(): void
     {
         info('cbQ', [$this->callbackQuery]);
-        $this->reply('test');
+        $this->bot->replyWebhook($this->callbackQuery->id, 'hi ther')->send();
     }
 
     protected function handleChatMessage(Stringable $text): void
