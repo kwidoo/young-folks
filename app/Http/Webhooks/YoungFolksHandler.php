@@ -12,13 +12,7 @@ class YoungFolksHandler extends WebhookHandler
 {
     public function hi(): void
     {
-        info('callback', [$this->data]);
-        $this->chat->html('Hi there!')->keyboard(Keyboard::make()
-            ->buttons([
-                Button::make('foo'),
-                Button::make('bar'),
-                Button::make('baz'),
-            ]))->send();
+        $this->reply('test');
     }
 
     protected function handleChatMessage(Stringable $text): void
