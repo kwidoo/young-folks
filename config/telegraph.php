@@ -23,13 +23,13 @@ return [
      *
      * For reference, see https://def-studio.github.io/telegraph/webhooks/overview
      */
-    'webhook_handler' => DefStudio\Telegraph\Handlers\EmptyWebhookHandler::class,
+    'webhook_handler' => App\Http\Webhooks\YoungFolksHandler::class,
 
     /*
      * If enabled, Telegraph dumps received
      * webhook messages to logs
      */
-    'debug_mode' => false,
+    'debug_mode' => true,
 
     /*
      * If enabled, unknown webhook commands are

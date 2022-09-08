@@ -48,12 +48,22 @@ class TelegramUpdate extends Model
         return $this->message['entities'][0]['type'] === 'bot_command';
     }
 
+    /**
+     * @param Builder<self> $query
+     *
+     * @return void
+     */
     public function scopeIsCommand(Builder $query): void
     {
         $query->whereJsonContains('message->entities', ['type' => 'bot_command']);
     }
 
-    public function scopeIsStart(Builder $query)
+    /**
+     * @param Builder<self> $query
+     *
+     * @return void
+     */
+    public function scopeIsStart(Builder $query): void
     {
         $query->where(DB::raw("json_search('message','all','/start%', null, '$.text')"));
     }

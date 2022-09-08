@@ -108,7 +108,6 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 return $request->user()->hasAnyRole('SuperAdmin', 'Admin');
             }),
             NovaSettingsTool::make(),
-
         ];
     }
 
