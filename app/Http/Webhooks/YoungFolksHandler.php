@@ -13,7 +13,11 @@ class YoungFolksHandler extends WebhookHandler
     public function hi(): void
     {
         info('cbQ', [request()->all()]);
-        $this->chat->message('hi there')->send();
+        $this->chat->message('hi there')->keyboard(Keyboard::make()->buttons([
+            Button::make('Delete')->action('delete')->param('id', '42'),
+            Button::make('open')->url('https://test.it'),
+            Button::make('Web App')->webApp('https://web-app.test.it'),
+        ]))->send();
     }
 
     protected function handleChatMessage(Stringable $text): void
