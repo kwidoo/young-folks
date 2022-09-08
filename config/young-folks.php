@@ -1,3 +1,5 @@
 <?php
 
-return [];
+return [
+    'token' => env('TELEGRAM_TOKEN'),
+];

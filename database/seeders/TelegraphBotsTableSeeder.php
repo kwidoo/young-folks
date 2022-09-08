@@ -23,7 +23,7 @@ class TelegraphBotsTableSeeder extends Seeder
             0 =>
             array(
                 'id' => 1,
-                'token' => '5741346347:AAGjBRxXvy1Tw1an8nbwcP3NLzudBgdJyiE',
+                'token' => config('young-folks.token'),
                 'name' => 'Young Folks',
                 'created_at' => '2022-09-08 08:46:55',
                 'updated_at' => '2022-09-08 08:46:55',
