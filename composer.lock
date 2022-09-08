@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f439ef4687964f3004287a35197331d4",
+    "content-hash": "375161bb1eb67ec4a80e92edf3344215",
     "packages": [
         {
             "name": "asantibanez/laravel-eloquent-state-machines",
@@ -461,6 +461,62 @@
             "time": "2022-08-13T15:23:32+00:00"
         },
         {
+            "name": "coderello/laravel-nova-lang",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/coderello/laravel-nova-lang.git",
+                "reference": "6ca352db1d138e18460af87a0d79938e3d3d7190"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/coderello/laravel-nova-lang/zipball/6ca352db1d138e18460af87a0d79938e3d3d7190",
+                "reference": "6ca352db1d138e18460af87a0d79938e3d3d7190",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1|^8.0"
+            },
+            "require-dev": {
+                "ext-curl": "*",
+                "illuminate/console": "^8.0",
+                "illuminate/events": "^8.0",
+                "illuminate/filesystem": "^8.0",
+                "laravel/nova": "~4.0",
+                "php": "^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Coderello\\LaravelNovaLang\\Providers\\LaravelNovaLangServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Coderello\\LaravelNovaLang\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Language support for Laravel Nova.",
+            "keywords": [
+                "lang",
+                "language",
+                "laravel",
+                "nova",
+                "support"
+            ],
+            "support": {
+                "issues": "https://github.com/coderello/laravel-nova-lang/issues",
+                "source": "https://github.com/coderello/laravel-nova-lang/tree/2.0.0"
+            },
+            "time": "2022-07-30T12:54:10+00:00"
+        },
+        {
             "name": "composer/class-map-generator",
             "version": "1.0.0",
             "source": {
@@ -742,6 +798,50 @@
                 }
             ],
             "time": "2022-01-25T02:55:58+00:00"
+        },
+        {
+            "name": "day4/switch-locale",
+            "version": "0.5.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/u12206050/switch-locale.git",
+                "reference": "fa9e762cf4623f88e078e7d0f52e17b1d53a22e0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/u12206050/switch-locale/zipball/fa9e762cf4623f88e078e7d0f52e17b1d53a22e0",
+                "reference": "fa9e762cf4623f88e078e7d0f52e17b1d53a22e0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Day4\\SwitchLocale\\ToolServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Day4\\SwitchLocale\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova tool to switch the locale",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "support": {
+                "source": "https://github.com/u12206050/switch-locale/tree/0.5.9"
+            },
+            "time": "2021-07-19T10:08:58+00:00"
         },
         {
             "name": "defstudio/telegraph",
@@ -2466,52 +2566,6 @@
             "time": "2020-03-10T01:19:26+00:00"
         },
         {
-            "name": "kabbouchi/nova-impersonate",
-            "version": "v2.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/KABBOUCHI/nova-impersonate.git",
-                "reference": "0d601beb2acf5fc1436b6bc6067a8440da86ef89"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/KABBOUCHI/nova-impersonate/zipball/0d601beb2acf5fc1436b6bc6067a8440da86ef89",
-                "reference": "0d601beb2acf5fc1436b6bc6067a8440da86ef89",
-                "shasum": ""
-            },
-            "require": {
-                "lab404/laravel-impersonate": "^1.7.3",
-                "laravel/nova": "^4.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "KABBOUCHI\\NovaImpersonate\\ToolServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "KABBOUCHI\\NovaImpersonate\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "A Laravel Nova field allows you to authenticate as your users.",
-            "keywords": [
-                "laravel",
-                "nova"
-            ],
-            "support": {
-                "issues": "https://github.com/KABBOUCHI/nova-impersonate/issues",
-                "source": "https://github.com/KABBOUCHI/nova-impersonate/tree/v2.0.0"
-            },
-            "time": "2022-05-08T20:30:08+00:00"
-        },
-        {
             "name": "kalnoy/nestedset",
             "version": "v6.0.1",
             "source": {
@@ -2573,74 +2627,6 @@
                 "source": "https://github.com/lazychaser/laravel-nestedset/tree/v6.0.1"
             },
             "time": "2022-02-11T06:17:57+00:00"
-        },
-        {
-            "name": "lab404/laravel-impersonate",
-            "version": "1.7.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/404labfr/laravel-impersonate.git",
-                "reference": "7c1f9c5cefd40247993f52f4b7724fd8b580084f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/404labfr/laravel-impersonate/zipball/7c1f9c5cefd40247993f52f4b7724fd8b580084f",
-                "reference": "7c1f9c5cefd40247993f52f4b7724fd8b580084f",
-                "shasum": ""
-            },
-            "require": {
-                "laravel/framework": "^6.0 | ^7.0 | ^8.0 | ^9.0",
-                "php": "^7.2 | ^8.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "^1.3.3",
-                "orchestra/database": "^4.0 | ^5.0 | ^6.0 | ^7.0",
-                "orchestra/testbench": "^4.0 | ^5.0 | ^6.0 | ^7.0",
-                "phpunit/phpunit": "^7.5 | ^8.0 | ^9.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Lab404\\Impersonate\\ImpersonateServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "files": [
-                    "src/helpers.php"
-                ],
-                "psr-4": {
-                    "Lab404\\Impersonate\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Marceau Casals",
-                    "email": "marceau@casals.fr"
-                }
-            ],
-            "description": "Laravel Impersonate is a plugin that allows to you to authenticate as your users.",
-            "keywords": [
-                "auth",
-                "impersonate",
-                "impersonation",
-                "laravel",
-                "laravel-package",
-                "laravel-plugin",
-                "package",
-                "plugin",
-                "user"
-            ],
-            "support": {
-                "issues": "https://github.com/404labfr/laravel-impersonate/issues",
-                "source": "https://github.com/404labfr/laravel-impersonate/tree/1.7.3"
-            },
-            "time": "2022-01-15T13:39:35+00:00"
         },
         {
             "name": "laravel/framework",
