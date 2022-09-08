@@ -14,12 +14,22 @@ namespace App\Models{
 /**
  * App\Models\Bot
  *
+ * @property int $id
+ * @property string $token
+ * @property string|null $name
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Chat[] $chats
  * @property-read int|null $chats_count
  * @method static \DefStudio\Telegraph\Database\Factories\TelegraphBotFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Bot newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Bot newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Bot query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Bot whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bot whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bot whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bot whereToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Bot whereUpdatedAt($value)
  */
 	class Bot extends \Eloquent {}
 }
@@ -28,11 +38,23 @@ namespace App\Models{
 /**
  * App\Models\Chat
  *
- * @property-read \App\Models\Bot|null $bot
+ * @property int $id
+ * @property string $chat_id
+ * @property string|null $name
+ * @property int $telegraph_bot_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Bot $bot
  * @method static \DefStudio\Telegraph\Database\Factories\TelegraphChatFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Chat newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Chat newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Chat query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Chat whereChatId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Chat whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Chat whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Chat whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Chat whereTelegraphBotId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Chat whereUpdatedAt($value)
  */
 	class Chat extends \Eloquent {}
 }
@@ -73,6 +95,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $email_verified_at
  * @property string $password
  * @property string|null $remember_token
+ * @property string $locale
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -96,6 +119,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereEmailVerifiedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereLocale($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
