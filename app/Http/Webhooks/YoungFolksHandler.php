@@ -2,6 +2,7 @@
 
 namespace App\Http\Webhooks;
 
+use DefStudio\Telegraph\DTO\InlineQuery;
 use DefStudio\Telegraph\Handlers\WebhookHandler;
 use Illuminate\Support\Stringable;
 
@@ -16,5 +17,10 @@ class YoungFolksHandler extends WebhookHandler
     protected function handleChatMessage(Stringable $text): void
     {
         info('chat message', [$text]);
+    }
+
+    protected function handleInlineQuery(InlineQuery $inlineQuery): void
+    {
+        info('inline query', [$inlineQuery]);
     }
 }
