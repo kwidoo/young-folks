@@ -12,6 +12,7 @@ class YoungFolksHandler extends WebhookHandler
 {
     public function hi(): void
     {
+        info('cbQ', [$this->callbackQuery]);
         $this->reply('test');
     }
 
