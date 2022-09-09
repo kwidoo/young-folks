@@ -26,10 +26,9 @@ class YoungFolksHandler extends WebhookHandler
         $this->chat->html('Hi there1!')->send();
     }
 
-    protected function handleInlineQuery(InlineQuery $inlineQuery): void
+    public function handleInlineQuery(InlineQuery $inlineQuery): void
     {
         info('inline query', [$inlineQuery]);
-        $this->chat->html('Hi there!2')->send();
     }
 
     public function two(): void
