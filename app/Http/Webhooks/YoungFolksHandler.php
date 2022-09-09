@@ -32,7 +32,7 @@ class YoungFolksHandler extends WebhookHandler
         $this->chat->html('Hi there!2')->send();
     }
 
-    protected function two(): void
+    public function two(): void
     {
         $this->chat->message('Two')->keyboard(Keyboard::make()->buttons([
             Button::make('Two')->action('more')->param('id', '42')
