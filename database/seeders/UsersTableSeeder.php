@@ -25,37 +25,39 @@ class UsersTableSeeder extends Seeder
                 'name' => 'Oleg Pashkovsky',
                 'email' => 'oleg@pashkovsky.me',
                 'email_verified_at' => '2022-09-08 07:30:21',
-                'password' => '$2y$10$KDMv9z3Oc0BR04fqPGB1U.HTn6sAjomuQg4LqTXwFqX/.LL6PuZRS',
+                'password' => '$2y$10$JeWFtZCXKskTT4SLtByP3uksvgg9ft6.GmFJBm2XBSfhytYRDZ6gC',
                 'remember_token' => NULL,
+                'locale' => 'ru',
+                'deleted_at' => NULL,
                 'created_at' => '2022-09-08 07:30:21',
                 'updated_at' => '2022-09-08 07:30:21',
-            )
+            ),
+            3 =>
+            array(
+                'id' => 4,
+                'name' => 'Jana Janovska',
+                'email' => 'janovskajana@inbox.lv',
+                'email_verified_at' => NULL,
+                'password' => '$2y$10$WN7xnoDywMIoAivU.M/zhuzKngm1d2rcNTZtbVhX6sKdEH0vNYkdW',
+                'remember_token' => NULL,
+                'locale' => 'ru',
+                'deleted_at' => NULL,
+                'created_at' => '2022-09-23 19:16:51',
+                'updated_at' => '2022-09-23 19:16:51',
+            ),
+            4 =>
+            array(
+                'id' => 5,
+                'name' => 'Aleksandr Morozov',
+                'email' => 'info@youngfolks.lv',
+                'email_verified_at' => NULL,
+                'password' => '$2y$10$AWO9FN4LhgdcwBF2XSWdQuEYjkEQmpELuSceqy5KhNJfNNXjv5dHe',
+                'remember_token' => NULL,
+                'locale' => 'en',
+                'deleted_at' => NULL,
+                'created_at' => '2022-09-23 19:18:27',
+                'updated_at' => '2022-09-23 19:18:27',
+            ),
         ));
-        if (env('APP_ENV') === 'local') {
-            \DB::table('users')->insert(array(
-                1 =>
-                array(
-                    'id' => 2,
-                    'name' => 'admin',
-                    'email' => 'admin@pashkovsky.me',
-                    'email_verified_at' => NULL,
-                    'password' => '$2y$10$LceV1cCm/r9LBRAR19R0cesN5k2BuK3uybgjabaBUcmrdigcaENJu', //123
-                    'remember_token' => NULL,
-                    'created_at' => '2022-09-08 07:52:40',
-                    'updated_at' => '2022-09-08 07:52:40',
-                ),
-                2 =>
-                array(
-                    'id' => 3,
-                    'name' => 'user',
-                    'email' => 'user@pashkovsky.me',
-                    'email_verified_at' => NULL,
-                    'password' => '$2y$10$Sa82jetSPXxKxaN5oJBbnOWOkcLLNhWJ2JBpBYN5XxM4qvpvU5MsK', //123
-                    'remember_token' => NULL,
-                    'created_at' => '2022-09-08 08:00:20',
-                    'updated_at' => '2022-09-08 08:00:20',
-                ),
-            ));
-        }
     }
 }

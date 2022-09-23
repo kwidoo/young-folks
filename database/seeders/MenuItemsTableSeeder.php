@@ -26,7 +26,7 @@ class MenuItemsTableSeeder extends Seeder
                 'enabled' => 1,
                 'type_id' => 3,
                 'name' => '{"ru":"\\u0414\\u0435\\u0442\\u0438","lv":null}',
-                'description' => '{"ru":"Add description"}',
+                'description' => '{"ru":"7-11 \\u043b\\u0435\\u0442","lv":null}',
                 'params' => NULL,
                 'sort_order' => 1,
                 '_lft' => 24,
@@ -34,7 +34,7 @@ class MenuItemsTableSeeder extends Seeder
                 'parent_id' => 23,
                 'deleted_at' => NULL,
                 'created_at' => '2022-09-23 16:40:20',
-                'updated_at' => '2022-09-23 19:02:21',
+                'updated_at' => '2022-09-23 19:13:53',
             ),
             1 =>
             array(
@@ -43,7 +43,7 @@ class MenuItemsTableSeeder extends Seeder
                 'enabled' => 1,
                 'type_id' => 3,
                 'name' => '{"ru":"\\u041f\\u043e\\u0434\\u0440\\u043e\\u0441\\u0442\\u043a\\u0438","lv":null}',
-                'description' => '{"ru":"Add description"}',
+                'description' => '{"ru":"12-15 \\u043b\\u0435\\u0442","lv":null}',
                 'params' => NULL,
                 'sort_order' => 1,
                 '_lft' => 16,
@@ -51,7 +51,7 @@ class MenuItemsTableSeeder extends Seeder
                 'parent_id' => 23,
                 'deleted_at' => NULL,
                 'created_at' => '2022-09-23 16:40:45',
-                'updated_at' => '2022-09-23 19:02:21',
+                'updated_at' => '2022-09-23 19:13:26',
             ),
             2 =>
             array(
@@ -60,7 +60,7 @@ class MenuItemsTableSeeder extends Seeder
                 'enabled' => 1,
                 'type_id' => 3,
                 'name' => '{"ru":"\\u041c\\u043e\\u043b\\u043e\\u0434\\u0435\\u0436\\u044c","lv":null}',
-                'description' => '{"ru":"Add description"}',
+                'description' => '{"ru":"16+","lv":null}',
                 'params' => NULL,
                 'sort_order' => 2,
                 '_lft' => 36,
@@ -68,7 +68,7 @@ class MenuItemsTableSeeder extends Seeder
                 'parent_id' => 23,
                 'deleted_at' => NULL,
                 'created_at' => '2022-09-23 16:40:57',
-                'updated_at' => '2022-09-23 19:02:21',
+                'updated_at' => '2022-09-23 19:12:42',
             ),
             3 =>
             array(
@@ -382,8 +382,8 @@ class MenuItemsTableSeeder extends Seeder
                 'slug' => 'nachat',
                 'enabled' => 1,
                 'type_id' => 3,
-                'name' => '{"ru":"\\u041a\\u0430\\u043a\\u0430\\u044f \\u0432\\u043e\\u0437\\u0440\\u0430\\u0441\\u0442\\u043d\\u0430\\u044f \\u043a\\u0430\\u0442\\u0435\\u0433\\u043e\\u0440\\u0438\\u044f \\u0432\\u0430\\u0441 \\u0438\\u043d\\u0442\\u0435\\u0440\\u0435\\u0441\\u0443\\u0435\\u0442?","lv":null}',
-                'description' => '{"ru":"Add description"}',
+                'name' => '{"ru":"\\u041d\\u0430\\u0447\\u0430\\u0442\\u044c","lv":null}',
+                'description' => '{"ru":"\\u041a\\u0430\\u043a\\u0430\\u044f \\u0432\\u043e\\u0437\\u0440\\u0430\\u0441\\u0442\\u043d\\u0430\\u044f \\u043a\\u0430\\u0442\\u0435\\u0433\\u043e\\u0440\\u0438\\u044f \\u0432\\u0430\\u0441 \\u0438\\u043d\\u0442\\u0435\\u0440\\u0435\\u0441\\u0443\\u0435\\u0442?","lv":null}',
                 'params' => NULL,
                 'sort_order' => 20,
                 '_lft' => 1,
@@ -391,7 +391,7 @@ class MenuItemsTableSeeder extends Seeder
                 'parent_id' => NULL,
                 'deleted_at' => NULL,
                 'created_at' => '2022-09-23 17:08:44',
-                'updated_at' => '2022-09-23 19:02:21',
+                'updated_at' => '2022-09-23 19:12:31',
             ),
         ));
     }
