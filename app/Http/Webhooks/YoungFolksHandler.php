@@ -6,6 +6,7 @@ use App\Models\MenuItem;
 use DefStudio\Telegraph\DTO\CallbackQuery;
 use DefStudio\Telegraph\DTO\InlineQuery;
 use DefStudio\Telegraph\DTO\Message;
+use DefStudio\Telegraph\Exceptions\TelegramWebhookException;
 use DefStudio\Telegraph\Handlers\WebhookHandler;
 use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
@@ -25,14 +26,17 @@ class YoungFolksHandler extends WebhookHandler
      */
     public function start($parameter): void
     {
-        if (!isset($this->menuItem)) {
-            $this->menuItem = MenuItem::whereIsRoot()->first();
-        }
-
         $buttons = $this->menuItem->children()->get()->map(function (MenuItem $menuItem) {
-            return Button::make($menuItem->getTranslation('name', app()->getLocale()))->action('/' . $menuItem->slug);
+            return Button::make($menuItem
+                ->getTranslation('name', app()->getLocale()))
+                ->action('/' . $menuItem->slug);
         })->toArray();
-        $this->chat->message($this->menuItem->description)->keyboard(Keyboard::make()->buttons($buttons))->send();
+
+
+        $this->chat->message($this->menuItem
+            ->getTranslation('description', app()->getLocale()))
+            ->keyboard(Keyboard::make()
+                ->buttons($buttons))->send();
     }
 
     /**
@@ -42,16 +46,15 @@ class YoungFolksHandler extends WebhookHandler
      */
     protected function canHandle($action): bool
     {
-        $parent = parent::canHandle($action);
-        if ($action !== '/start') {
-            $this->menuItem = MenuItem::whereIsRoot()->first();
-        } else {
-            $this->menuItem = MenuItem::bySlug($action)->firstOrFail();
-        }
+        $this->menuItem = MenuItem::bySlug($action)->first();
         if ($this->menuItem) {
             return true;
         }
-        return $parent;
+        if (in_array($action, ['start', '/start'])) {
+            $this->menuItem = MenuItem::whereIsRoot()->first();
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -59,7 +62,32 @@ class YoungFolksHandler extends WebhookHandler
      */
     protected function handleMessageYf(): void
     {
-        $this->extractMessageData();
+        assert($this->message?->chat() !== null);
+
+        /** @var TelegraphChat $chat */
+        $chat = $this->bot->chats()->firstOrNew([
+            'chat_id' => $this->message->chat()->id(),
+        ]);
+        $this->chat = $chat;
+
+        if (!$this->chat->exists) {
+            if (!config('telegraph.security.allow_messages_from_unknown_chats', false)) {
+                throw new NotFoundHttpException();
+            }
+
+            if (config('telegraph.security.store_unknown_chats_in_db', false)) {
+                $this->chat->name = Str::of("")
+                    ->append("[", $this->message->chat()->type(), ']')
+                    ->append(" ", $this->message->chat()->title());
+                $this->chat->save();
+            }
+        }
+
+        $this->messageId = $this->message->id();
+
+        $this->data = collect([
+            'text' => $this->message->text(),
+        ]);
 
         if (config('telegraph.debug_mode')) {
             Log::debug('Telegraph webhook message', $this->data->toArray());
@@ -81,7 +109,40 @@ class YoungFolksHandler extends WebhookHandler
      */
     protected function handleCallbackQueryYf()
     {
-        $this->extractCallbackQueryData();
+        /** @var TelegraphChat $chat */
+        $chat = $this->bot->chats()->firstOrNew([
+            'chat_id' => $this->request->input('callback_query.message.chat.id'),
+        ]);
+
+        $this->chat = $chat;
+
+        if (!$this->chat->exists) {
+            if (!config('telegraph.security.allow_callback_queries_from_unknown_chats', false)) {
+                throw new NotFoundHttpException();
+            }
+
+            if (config('telegraph.security.store_unknown_chats_in_db', false)) {
+                $this->chat->name = Str::of("")
+                    ->append("[", $this->request->input('callback_query.message.chat.type'), ']')
+                    ->append(" ", $this->request->input(
+                        'callback_query.message.chat.username',
+                        $this->request->input('callback_query.message.chat.title')
+                    ));
+
+                $this->chat->save();
+            }
+        }
+
+        assert($this->callbackQuery !== null);
+
+        $this->messageId = $this->callbackQuery->message()?->id() ?? throw TelegramWebhookException::invalidData('message id missing');
+
+        $this->callbackQueryId = $this->callbackQuery->id();
+
+        /** @phpstan-ignore-next-line */
+        $this->originalKeyboard = $this->callbackQuery->message()?->keyboard() ?? Keyboard::make();
+
+        $this->data = $this->callbackQuery->data();
 
         if (config('telegraph.debug_mode')) {
             Log::debug('Telegraph webhook callback', $this->data->toArray());
@@ -89,11 +150,10 @@ class YoungFolksHandler extends WebhookHandler
 
         $action = Str::of($this->callbackQuery?->data()->get('action') ?? '');
 
-        if ($action !== '/start') {
-            if (!$this->canHandle($action)) {
-                throw new NotFoundHttpException();
-            }
+        if (!$this->canHandle($action)) {
+            throw new NotFoundHttpException();
         }
+
         $this->handleCommandYF($action);
     }
 
