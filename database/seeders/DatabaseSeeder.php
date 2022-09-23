@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ModelHasRolesTableSeeder::class);
         $this->call(PermissionsTableSeeder::class);
         $this->call(TelegraphBotsTableSeeder::class);
-        $this->call(MenuItemsTableSeeder::class);
         $this->call(TypesTableSeeder::class);
+        $this->call(MenuItemsTableSeeder::class);
     }
 }
