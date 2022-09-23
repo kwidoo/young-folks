@@ -28,10 +28,10 @@ class YoungFolksHandler extends WebhookHandler
         if (!isset($this->menuItem)) {
             $this->menuItem = MenuItem::whereIsRoot()->first();
         }
-        $buttons = $this->menuItem->children()->get()->map(function (MenuItem $menuItem) {
-            return Button::make($menuItem->name)->action('/' . $menuItem->slug);
-        })->toArray();
 
+        $buttons = $this->menuItem->children()->get()->map(function (MenuItem $menuItem) {
+            return Button::make($menuItem->getTranslation('name', app()->getLocale()))->action('/' . $menuItem->slug);
+        })->toArray();
         $this->chat->message($this->menuItem->description)->keyboard(Keyboard::make()->buttons($buttons))->send();
     }
 
@@ -110,7 +110,6 @@ class YoungFolksHandler extends WebhookHandler
 
         if (!$this->canHandle($command)) {
             $this->handleUnknownCommand($text);
-
             return;
         }
         if (!method_exists($this, $command)) {
@@ -127,7 +126,7 @@ class YoungFolksHandler extends WebhookHandler
         $this->bot = $bot;
 
         $this->request = $request;
-
+        info('request', [$request->all()]);
         if ($this->request->has('message')) {
             /* @phpstan-ignore-next-line */
             $this->message = Message::fromArray($this->request->input('message'));
