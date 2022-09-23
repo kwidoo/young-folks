@@ -79,7 +79,6 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Kalnoy\Nestedset\Collection|MenuItem[] $children
  * @property-read int|null $children_count
- * @property-read mixed $formatted
  * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
  * @property-read int|null $media_count
  * @property-read MenuItem|null $parent
@@ -88,6 +87,7 @@ namespace App\Models{
  * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem ancestorsAndSelf($id, array $columns = [])
  * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem ancestorsOf($id, array $columns = [])
  * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem applyNestedSetScope(?string $table = null)
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem bySlug(string $slug)
  * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem countErrors()
  * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem d()
  * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem defaultOrder(string $dir = 'asc')

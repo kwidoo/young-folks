@@ -23,7 +23,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class YoungFolksHandler
 {
-
     protected TelegraphBot $bot;
     protected TelegraphChat $chat;
 
@@ -38,7 +37,7 @@ class YoungFolksHandler
 
     protected Keyboard $originalKeyboard;
 
-    protected ?MenuItem $menuItem = null;
+    protected MenuItem $menuItem;
 
     public function __construct()
     {
@@ -50,17 +49,25 @@ class YoungFolksHandler
      */
     public function start($parameter): void
     {
-        $buttons = $this->menuItem->children()->get()->map(function (MenuItem $menuItem) {
-            return Button::make($menuItem
-                ->getTranslation('name', app()->getLocale()))
-                ->action('/' . $menuItem->slug);
-        })->toArray();
+        if (!$this->menuItem) {
+            throw new NotFoundHttpException();
+        }
+        if ($this->menuItem->hasChildren()) {
+            $buttons = $this->menuItem->children()->get()->map(function (MenuItem $menuItem) {
+                return Button::make($menuItem
+                    ->getTranslation('name', app()->getLocale()))
+                    ->action('/' . $menuItem->slug);
+            })->toArray();
+            $this->chat->message($this->menuItem
+                ->getTranslation('description', app()->getLocale()))
+                ->keyboard(Keyboard::make()
+                    ->buttons($buttons))->send();
+        }
 
-
-        $this->chat->message($this->menuItem
-            ->getTranslation('description', app()->getLocale()))
-            ->keyboard(Keyboard::make()
-                ->buttons($buttons))->send();
+        if ($this->menuItem->children->isEmpty()) {
+            $this->chat->message($this->menuItem
+                ->getTranslation('description', app()->getLocale()))->send();
+        }
     }
 
     /**
@@ -120,7 +127,7 @@ class YoungFolksHandler
         $text = Str::of($this->message?->text() ?? '');
 
         if ($text->startsWith('/')) {
-            $this->handleCommandYF($text);
+            $this->handleCommand($text);
         }
 
         if (!$text->startsWith('/')) {
@@ -178,7 +185,7 @@ class YoungFolksHandler
             throw new NotFoundHttpException();
         }
 
-        $this->handleCommandYF($action);
+        $this->handleCommand($action);
     }
 
     /**
@@ -186,7 +193,7 @@ class YoungFolksHandler
      *
      * @return void
      */
-    protected function handleCommandYF(Stringable $text): void
+    protected function handleCommand(Stringable $text): void
     {
         $command = (string) $text->after('/')->before(' ')->before('@');
         $parameter = (string) $text->after('@')->after(' ');
