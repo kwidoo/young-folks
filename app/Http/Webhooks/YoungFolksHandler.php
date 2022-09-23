@@ -47,10 +47,10 @@ class YoungFolksHandler extends WebhookHandler
      *
      * @return bool
      */
-    protected function canHandle(string $action): bool
+    protected function canHandle($action): bool
     {
         $parent = parent::canHandle($action);
-        $this->menuItem = MenuItem::whereSlug($action)->orWhere('slug', '/' . $action)->first();
+        $this->menuItem = MenuItem::whereSlug($action)->orWhere('slug', Str::replace('/', '', $action))->first();
         if ($this->menuItem) {
             return true;
         }
@@ -91,10 +91,10 @@ class YoungFolksHandler extends WebhookHandler
         }
 
         $action = Str::of($this->callbackQuery?->data()->get('action') ?? '');
+
         if (!$this->canHandle($action)) {
             throw new NotFoundHttpException();
         }
-
         $this->handleCommandYF($action);
     }
 
