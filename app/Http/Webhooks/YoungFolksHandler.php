@@ -43,7 +43,11 @@ class YoungFolksHandler extends WebhookHandler
     protected function canHandle($action): bool
     {
         $parent = parent::canHandle($action);
-        $this->menuItem = MenuItem::bySlug($action)->firstOrFail();
+        if ($action !== '/start') {
+            $this->menuItem = MenuItem::whereIsRoot()->first();
+        } else {
+            $this->menuItem = MenuItem::bySlug($action)->firstOrFail();
+        }
         if ($this->menuItem) {
             return true;
         }
@@ -121,7 +125,6 @@ class YoungFolksHandler extends WebhookHandler
         $this->bot = $bot;
 
         $this->request = $request;
-        info('request', [$request->all()]);
         if ($this->request->has('message')) {
             /* @phpstan-ignore-next-line */
             $this->message = Message::fromArray($this->request->input('message'));
