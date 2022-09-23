@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class YoungFolksHandler extends WebhookHandler
 {
@@ -78,6 +79,24 @@ class YoungFolksHandler extends WebhookHandler
         }
     }
 
+    protected function handleCallbackQueryYf()
+    {
+        $this->extractCallbackQueryData();
+
+        if (config('telegraph.debug_mode')) {
+            Log::debug('Telegraph webhook callback', $this->data->toArray());
+        }
+
+        /** @var string $action */
+        $action = $this->callbackQuery?->data()->get('action') ?? '';
+
+        if (!$this->canHandle($action)) {
+            throw new NotFoundHttpException();
+        }
+
+        $this->handleCommandYF($action);
+    }
+
     /**
      * @param Stringable $text
      *
@@ -119,7 +138,7 @@ class YoungFolksHandler extends WebhookHandler
         if ($this->request->has('channel_post')) {
             /* @phpstan-ignore-next-line */
             $this->message = Message::fromArray($this->request->input('channel_post'));
-            $this->handleMessage();
+            $this->handleMessageYf();
 
             return;
         }
@@ -128,7 +147,7 @@ class YoungFolksHandler extends WebhookHandler
         if ($this->request->has('callback_query')) {
             /* @phpstan-ignore-next-line */
             $this->callbackQuery = CallbackQuery::fromArray($this->request->input('callback_query'));
-            $this->handleCallbackQuery();
+            $this->handleCallbackQueryYf();
         }
 
         if ($this->request->has('inline_query')) {
