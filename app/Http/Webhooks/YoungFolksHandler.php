@@ -3,14 +3,17 @@
 namespace App\Http\Webhooks;
 
 use App\Models\MenuItem;
+use DefStudio\Telegraph\DTO\CallbackQuery;
 use DefStudio\Telegraph\DTO\InlineQuery;
+use DefStudio\Telegraph\DTO\Message;
 use DefStudio\Telegraph\Handlers\WebhookHandler;
 use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
+use DefStudio\Telegraph\Models\TelegraphBot;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class YoungFolksHandler extends WebhookHandler
 {
@@ -46,7 +49,7 @@ class YoungFolksHandler extends WebhookHandler
     protected function canHandle(string $action): bool
     {
         $parent = parent::canHandle($action);
-        $this->menuItem = MenuItem::whereSlug(Str::replace('/', '', $action))->first();
+        $this->menuItem = MenuItem::whereSlug($action)->first();
         if ($this->menuItem) {
             return true;
         }
@@ -56,7 +59,7 @@ class YoungFolksHandler extends WebhookHandler
     /**
      * @return void
      */
-    private function handleMessage(): void
+    protected function handleMessageYf(): void
     {
         $this->extractMessageData();
 
@@ -67,7 +70,7 @@ class YoungFolksHandler extends WebhookHandler
         $text = Str::of($this->message?->text() ?? '');
 
         if ($text->startsWith('/')) {
-            $this->handleCommand($text);
+            $this->handleCommandYF($text);
         }
 
         if (!$text->startsWith('/')) {
@@ -80,7 +83,7 @@ class YoungFolksHandler extends WebhookHandler
      *
      * @return void
      */
-    private function handleCommand(Stringable $text): void
+    protected function handleCommandYF(Stringable $text): void
     {
         $command = (string) $text->after('/')->before(' ')->before('@');
         $parameter = (string) $text->after('@')->after(' ');
@@ -96,6 +99,41 @@ class YoungFolksHandler extends WebhookHandler
 
         if (method_exists($this, $command)) {
             $this->{$command}($parameter);
+        }
+    }
+
+    public function handle(Request $request, TelegraphBot $bot): void
+    {
+        $this->bot = $bot;
+
+        $this->request = $request;
+
+        if ($this->request->has('message')) {
+            /* @phpstan-ignore-next-line */
+            $this->message = Message::fromArray($this->request->input('message'));
+            $this->handleMessageYf();
+
+            return;
+        }
+
+        if ($this->request->has('channel_post')) {
+            /* @phpstan-ignore-next-line */
+            $this->message = Message::fromArray($this->request->input('channel_post'));
+            $this->handleMessage();
+
+            return;
+        }
+
+
+        if ($this->request->has('callback_query')) {
+            /* @phpstan-ignore-next-line */
+            $this->callbackQuery = CallbackQuery::fromArray($this->request->input('callback_query'));
+            $this->handleCallbackQuery();
+        }
+
+        if ($this->request->has('inline_query')) {
+            /* @phpstan-ignore-next-line */
+            $this->handleInlineQuery(InlineQuery::fromArray($this->request->input('inline_query')));
         }
     }
 }
