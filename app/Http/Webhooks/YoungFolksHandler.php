@@ -35,13 +35,6 @@ class YoungFolksHandler extends WebhookHandler
         $this->chat->message($this->menuItem->description)->keyboard(Keyboard::make()->buttons($buttons))->send();
     }
 
-
-    protected function handleChatMessage(Stringable $text): void
-    {
-        info('chat message', [$text]);
-        $this->chat->html('Hi there1!')->send();
-    }
-
     /**
      * @param string $action
      *
@@ -50,7 +43,7 @@ class YoungFolksHandler extends WebhookHandler
     protected function canHandle($action): bool
     {
         $parent = parent::canHandle($action);
-        $this->menuItem = MenuItem::whereSlug($action)->orWhere('slug', Str::replace('/', '', $action))->first();
+        $this->menuItem = MenuItem::bySlug($action)->firstOrFail();
         if ($this->menuItem) {
             return true;
         }

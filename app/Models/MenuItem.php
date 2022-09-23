@@ -11,6 +11,8 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Translatable\HasTranslations;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 use Kalnoy\Nestedset\NodeTrait;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
@@ -45,6 +47,18 @@ class MenuItem extends Model implements HasMedia, Sortable
         'sort_on_has_many' => true,
     ];
 
+    /**
+     * @param Builder $query
+     * @param string $slug
+     *
+     * @return void
+     */
+    public function scopeBySlug(Builder $query, string $slug)
+    {
+        $slug = Str::of($slug);
+        $slug = $slug->startsWith('/') ? $slug->substr(1) : $slug;
+        $query->where('slug', $slug);
+    }
 
     /**
      * @return void
