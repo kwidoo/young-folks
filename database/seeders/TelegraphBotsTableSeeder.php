@@ -30,7 +30,7 @@ class TelegraphBotsTableSeeder extends Seeder
             ),
         ));
 
-        $bot = Bot::find(1);
-        $bot->registerWebhook()->send();
+        // $bot = Bot::find(1);
+        // $bot->registerWebhook()->send();
     }
 }

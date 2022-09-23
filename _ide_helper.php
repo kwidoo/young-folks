@@ -17009,542 +17009,7 @@
      
 }
 
-        namespace BotMan\BotMan\Facades { 
-            /**
-     * 
-     *
-     */ 
-        class BotMan {
-                    /**
-         * Set a fallback message to use if no listener matches.
-         *
-         * @param callable $callback
-         * @static 
-         */ 
-        public static function fallback($callback)
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->fallback($callback);
-        }
-                    /**
-         * 
-         *
-         * @param string $name The Driver name or class
-         * @static 
-         */ 
-        public static function loadDriver($name)
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->loadDriver($name);
-        }
-                    /**
-         * 
-         *
-         * @param \BotMan\BotMan\Interfaces\DriverInterface $driver
-         * @static 
-         */ 
-        public static function setDriver($driver)
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->setDriver($driver);
-        }
-                    /**
-         * 
-         *
-         * @return \BotMan\BotMan\Interfaces\DriverInterface 
-         * @static 
-         */ 
-        public static function getDriver()
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->getDriver();
-        }
-                    /**
-         * 
-         *
-         * @param \Psr\Container\ContainerInterface $container
-         * @static 
-         */ 
-        public static function setContainer($container)
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->setContainer($container);
-        }
-                    /**
-         * Retrieve the chat message.
-         *
-         * @return array 
-         * @static 
-         */ 
-        public static function getMessages()
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->getMessages();
-        }
-                    /**
-         * Retrieve the chat message that are sent from bots.
-         *
-         * @return array 
-         * @static 
-         */ 
-        public static function getBotMessages()
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->getBotMessages();
-        }
-                    /**
-         * 
-         *
-         * @return \BotMan\BotMan\Messages\Incoming\Answer 
-         * @static 
-         */ 
-        public static function getConversationAnswer()
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->getConversationAnswer();
-        }
-                    /**
-         * 
-         *
-         * @param bool $running
-         * @return bool 
-         * @static 
-         */ 
-        public static function runsOnSocket($running = null)
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->runsOnSocket($running);
-        }
-                    /**
-         * 
-         *
-         * @return \BotMan\BotMan\Interfaces\UserInterface 
-         * @static 
-         */ 
-        public static function getUser()
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->getUser();
-        }
-                    /**
-         * 
-         *
-         * @param array|string $pattern the pattern to listen for
-         * @param \Closure|string $callback the callback to execute. Either a closure or a Class@method notation
-         * @param string $in the channel type to listen to (either direct message or public channel)
-         * @return \BotMan\BotMan\Commands\Command 
-         * @static 
-         */ 
-        public static function hears($pattern, $callback, $in = null)
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->hears($pattern, $callback, $in);
-        }
-                    /**
-         * Listen for messaging service events.
-         *
-         * @param array|string $names
-         * @param \Closure|string $callback
-         * @static 
-         */ 
-        public static function on($names, $callback)
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->on($names, $callback);
-        }
-                    /**
-         * Listening for image files.
-         *
-         * @param $callback
-         * @return \BotMan\BotMan\Commands\Command 
-         * @static 
-         */ 
-        public static function receivesImages($callback)
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->receivesImages($callback);
-        }
-                    /**
-         * Listening for video files.
-         *
-         * @param $callback
-         * @return \BotMan\BotMan\Commands\Command 
-         * @static 
-         */ 
-        public static function receivesVideos($callback)
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->receivesVideos($callback);
-        }
-                    /**
-         * Listening for audio files.
-         *
-         * @param $callback
-         * @return \BotMan\BotMan\Commands\Command 
-         * @static 
-         */ 
-        public static function receivesAudio($callback)
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->receivesAudio($callback);
-        }
-                    /**
-         * Listening for location attachment.
-         *
-         * @param $callback
-         * @return \BotMan\BotMan\Commands\Command 
-         * @static 
-         */ 
-        public static function receivesLocation($callback)
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->receivesLocation($callback);
-        }
-                    /**
-         * Listening for contact attachment.
-         *
-         * @param $callback
-         * @return \BotMan\BotMan\Commands\Command 
-         * @static 
-         */ 
-        public static function receivesContact($callback)
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->receivesContact($callback);
-        }
-                    /**
-         * Listening for files attachment.
-         *
-         * @param $callback
-         * @return \BotMan\BotMan\Commands\Command 
-         * @static 
-         */ 
-        public static function receivesFiles($callback)
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->receivesFiles($callback);
-        }
-                    /**
-         * Create a command group with shared attributes.
-         *
-         * @param array $attributes
-         * @param \Closure $callback
-         * @static 
-         */ 
-        public static function group($attributes, $callback)
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->group($attributes, $callback);
-        }
-                    /**
-         * Try to match messages with the ones we should
-         * listen to.
-         *
-         * @static 
-         */ 
-        public static function listen()
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->listen();
-        }
-                    /**
-         * 
-         *
-         * @param string|\BotMan\BotMan\Messages\Outgoing\Question|\BotMan\BotMan\Messages\Outgoing\OutgoingMessage $message
-         * @param string|array $recipients
-         * @param string|\BotMan\BotMan\Interfaces\DriverInterface|null $driver
-         * @param array $additionalParameters
-         * @return \Response 
-         * @throws BotManException
-         * @static 
-         */ 
-        public static function say($message, $recipients, $driver = null, $additionalParameters = [])
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->say($message, $recipients, $driver, $additionalParameters);
-        }
-                    /**
-         * 
-         *
-         * @param string|\BotMan\BotMan\Messages\Outgoing\Question $question
-         * @param array|\Closure $next
-         * @param array $additionalParameters
-         * @param null|string $recipient
-         * @param null|string $driver
-         * @return \Response 
-         * @static 
-         */ 
-        public static function ask($question, $next, $additionalParameters = [], $recipient = null, $driver = null)
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->ask($question, $next, $additionalParameters, $recipient, $driver);
-        }
-                    /**
-         * 
-         *
-         * @return \BotMan\BotMan\BotMan 
-         * @static 
-         */ 
-        public static function types()
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->types();
-        }
-                    /**
-         * 
-         *
-         * @param float $seconds Number of seconds to wait
-         * @return \BotMan\BotMan\BotMan 
-         * @static 
-         */ 
-        public static function typesAndWaits($seconds)
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->typesAndWaits($seconds);
-        }
-                    /**
-         * Low-level method to perform driver specific API requests.
-         *
-         * @param string $endpoint
-         * @param array $additionalParameters
-         * @return \BotMan\BotMan\BotMan 
-         * @throws BadMethodCallException
-         * @static 
-         */ 
-        public static function sendRequest($endpoint, $additionalParameters = [])
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->sendRequest($endpoint, $additionalParameters);
-        }
-                    /**
-         * 
-         *
-         * @param string|\BotMan\BotMan\Messages\Outgoing\OutgoingMessage|\BotMan\BotMan\Messages\Outgoing\Question $message
-         * @param array $additionalParameters
-         * @return mixed 
-         * @static 
-         */ 
-        public static function reply($message, $additionalParameters = [])
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->reply($message, $additionalParameters);
-        }
-                    /**
-         * 
-         *
-         * @param $payload
-         * @return mixed 
-         * @static 
-         */ 
-        public static function sendPayload($payload)
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->sendPayload($payload);
-        }
-                    /**
-         * Return a random message.
-         *
-         * @param array $messages
-         * @return \BotMan\BotMan\BotMan 
-         * @static 
-         */ 
-        public static function randomReply($messages)
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->randomReply($messages);
-        }
-                    /**
-         * 
-         *
-         * @return array 
-         * @static 
-         */ 
-        public static function getMatches()
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->getMatches();
-        }
-                    /**
-         * 
-         *
-         * @return \BotMan\BotMan\Messages\Incoming\IncomingMessage 
-         * @static 
-         */ 
-        public static function getMessage()
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->getMessage();
-        }
-                    /**
-         * 
-         *
-         * @return \BotMan\BotMan\Messages\Outgoing\OutgoingMessage|\BotMan\BotMan\Messages\Outgoing\Question 
-         * @static 
-         */ 
-        public static function getOutgoingMessage()
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->getOutgoingMessage();
-        }
-                    /**
-         * 
-         *
-         * @return \Storage 
-         * @static 
-         */ 
-        public static function userStorage()
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->userStorage();
-        }
-                    /**
-         * 
-         *
-         * @return \Storage 
-         * @static 
-         */ 
-        public static function channelStorage()
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->channelStorage();
-        }
-                    /**
-         * 
-         *
-         * @return \Storage 
-         * @static 
-         */ 
-        public static function driverStorage()
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->driverStorage();
-        }
-                    /**
-         * 
-         *
-         * @param \BotMan\BotMan\Messages\Conversations\Conversation $instance
-         * @param null|string $recipient
-         * @param null|string $driver
-         * @static 
-         */ 
-        public static function startConversation($instance, $recipient = null, $driver = null)
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->startConversation($instance, $recipient, $driver);
-        }
-                    /**
-         * 
-         *
-         * @param \BotMan\BotMan\Messages\Conversations\Conversation $instance
-         * @param array|\Closure $next
-         * @param string|\BotMan\BotMan\Messages\Outgoing\Question $question
-         * @param array $additionalParameters
-         * @static 
-         */ 
-        public static function storeConversation($instance, $next, $question = null, $additionalParameters = [])
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->storeConversation($instance, $next, $question, $additionalParameters);
-        }
-                    /**
-         * Get a stored conversation array from the cache for a given message.
-         *
-         * @param null|\BotMan\BotMan\Messages\Incoming\IncomingMessage $message
-         * @return array 
-         * @static 
-         */ 
-        public static function getStoredConversation($message = null)
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->getStoredConversation($message);
-        }
-                    /**
-         * Touch and update the current conversation.
-         *
-         * @return void 
-         * @static 
-         */ 
-        public static function touchCurrentConversation()
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        $instance->touchCurrentConversation();
-        }
-                    /**
-         * Get the question that was asked in the currently stored conversation
-         * for a given message.
-         *
-         * @param null|\BotMan\BotMan\Messages\Incoming\IncomingMessage $message
-         * @return string|\BotMan\BotMan\Messages\Outgoing\Question 
-         * @static 
-         */ 
-        public static function getStoredConversationQuestion($message = null)
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->getStoredConversationQuestion($message);
-        }
-                    /**
-         * Remove a stored conversation array from the cache for a given message.
-         *
-         * @param null|\BotMan\BotMan\Messages\Incoming\IncomingMessage $message
-         * @static 
-         */ 
-        public static function removeStoredConversation($message = null)
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->removeStoredConversation($message);
-        }
-                    /**
-         * 
-         *
-         * @param \Closure $closure
-         * @return string 
-         * @static 
-         */ 
-        public static function serializeClosure($closure)
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->serializeClosure($closure);
-        }
-                    /**
-         * Look for active conversations and clear the payload
-         * if a conversation is found.
-         *
-         * @static 
-         */ 
-        public static function loadActiveConversation()
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->loadActiveConversation();
-        }
-                    /**
-         * Register a custom exception handler.
-         *
-         * @param string $exception
-         * @param callable $closure
-         * @static 
-         */ 
-        public static function exception($exception, $closure)
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->exception($exception, $closure);
-        }
-                    /**
-         * 
-         *
-         * @param \BotMan\BotMan\Interfaces\ExceptionHandlerInterface $exceptionHandler
-         * @static 
-         */ 
-        public static function setExceptionHandler($exceptionHandler)
-        {
-                        /** @var \BotMan\BotMan\BotMan $instance */
-                        return $instance->setExceptionHandler($exceptionHandler);
-        }
-         
-    }
-     
-}
-
-    namespace DefStudio\Telegraph\Facades { 
+        namespace DefStudio\Telegraph\Facades { 
             /**
      * 
      *
@@ -18405,6 +17870,143 @@
         {
                         /** @var \DefStudio\Telegraph\Support\Testing\Fakes\TelegraphFake $instance */
                         return $instance->dumpSentData();
+        }
+         
+    }
+     
+}
+
+    namespace Telegram\Bot\Laravel\Facades { 
+            /**
+     * Class Telegram.
+     *
+     * @method static list<\Telegram\Bot\Api> getBots(string $name)
+     * @mixin \Telegram\Bot\BotsManager
+     */ 
+        class Telegram {
+                    /**
+         * Set the IoC Container.
+         *
+         * @param \Illuminate\Contracts\Container\Container $container Container instance
+         * @return \Telegram\Bot\BotsManager 
+         * @static 
+         */ 
+        public static function setContainer($container)
+        {
+                        /** @var \Telegram\Bot\BotsManager $instance */
+                        return $instance->setContainer($container);
+        }
+                    /**
+         * Get the configuration for a bot.
+         *
+         * @param string|null $name
+         * @throws InvalidArgumentException
+         * @return array 
+         * @static 
+         */ 
+        public static function getBotConfig($name = null)
+        {
+                        /** @var \Telegram\Bot\BotsManager $instance */
+                        return $instance->getBotConfig($name);
+        }
+                    /**
+         * Get a bot instance.
+         *
+         * @param string|null $name
+         * @throws TelegramSDKException
+         * @return \Telegram\Bot\Api 
+         * @static 
+         */ 
+        public static function bot($name = null)
+        {
+                        /** @var \Telegram\Bot\BotsManager $instance */
+                        return $instance->bot($name);
+        }
+                    /**
+         * Reconnect to the given bot.
+         *
+         * @param string|null $name
+         * @throws TelegramSDKException
+         * @return \Telegram\Bot\Api 
+         * @static 
+         */ 
+        public static function reconnect($name = null)
+        {
+                        /** @var \Telegram\Bot\BotsManager $instance */
+                        return $instance->reconnect($name);
+        }
+                    /**
+         * Disconnect from the given bot.
+         *
+         * @param string|null $name
+         * @return \Telegram\Bot\BotsManager 
+         * @static 
+         */ 
+        public static function disconnect($name = null)
+        {
+                        /** @var \Telegram\Bot\BotsManager $instance */
+                        return $instance->disconnect($name);
+        }
+                    /**
+         * Get the specified configuration value for Telegram.
+         *
+         * @param string $key
+         * @param mixed $default
+         * @return mixed 
+         * @static 
+         */ 
+        public static function getConfig($key, $default = null)
+        {
+                        /** @var \Telegram\Bot\BotsManager $instance */
+                        return $instance->getConfig($key, $default);
+        }
+                    /**
+         * Get the default bot name.
+         *
+         * @return string|null 
+         * @static 
+         */ 
+        public static function getDefaultBotName()
+        {
+                        /** @var \Telegram\Bot\BotsManager $instance */
+                        return $instance->getDefaultBotName();
+        }
+                    /**
+         * Set the default bot name.
+         *
+         * @param string $name
+         * @return \Telegram\Bot\BotsManager 
+         * @static 
+         */ 
+        public static function setDefaultBot($name)
+        {
+                        /** @var \Telegram\Bot\BotsManager $instance */
+                        return $instance->setDefaultBot($name);
+        }
+                    /**
+         * Return all of the created bots.
+         *
+         * @return \Telegram\Bot\array<string, Api>
+         * @static 
+         */ 
+        public static function getBots()
+        {
+                        /** @var \Telegram\Bot\BotsManager $instance */
+                        return $instance->getBots();
+        }
+                    /**
+         * 
+         *
+         * @deprecated Will be removed in SDK v4
+         * @internal Builds the list of commands for the given commands array.
+         * @param \Telegram\Bot\list<string|\Telegram\Bot\class-string<\Telegram\Bot\Commands\CommandInterface>> $commands A list of command names or FQCNs of CommandInterface instances.
+         * @return array An array of commands which includes global and bot specific commands.
+         * @static 
+         */ 
+        public static function parseBotCommands($commands)
+        {
+                        /** @var \Telegram\Bot\BotsManager $instance */
+                        return $instance->parseBotCommands($commands);
         }
          
     }
@@ -23097,8 +22699,8 @@ namespace  {
             class Validator extends \Illuminate\Support\Facades\Validator {}
             class View extends \Illuminate\Support\Facades\View {}
             class Vite extends \Illuminate\Support\Facades\Vite {}
-            class BotMan extends \BotMan\BotMan\Facades\BotMan {}
             class Telegraph extends \DefStudio\Telegraph\Facades\Telegraph {}
+            class Telegram extends \Telegram\Bot\Laravel\Facades\Telegram {}
             class MacroableModels extends \Javoscript\MacroableModels\Facades\MacroableModels {}
             class Nova extends \Laravel\Nova\Nova {}
             class Flare extends \Spatie\LaravelIgnition\Facades\Flare {}
