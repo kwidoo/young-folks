@@ -4,23 +4,47 @@ namespace App\Http\Webhooks;
 
 use App\Models\MenuItem;
 use DefStudio\Telegraph\DTO\CallbackQuery;
+use DefStudio\Telegraph\DTO\Chat;
 use DefStudio\Telegraph\DTO\InlineQuery;
 use DefStudio\Telegraph\DTO\Message;
+use DefStudio\Telegraph\DTO\User;
 use DefStudio\Telegraph\Exceptions\TelegramWebhookException;
 use DefStudio\Telegraph\Handlers\WebhookHandler;
 use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 use DefStudio\Telegraph\Models\TelegraphBot;
+use DefStudio\Telegraph\Models\TelegraphChat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class YoungFolksHandler extends WebhookHandler
+class YoungFolksHandler
 {
 
+    protected TelegraphBot $bot;
+    protected TelegraphChat $chat;
+
+    protected int $messageId;
+    protected int $callbackQueryId;
+
+    protected Request $request;
+    protected Message|null $message = null;
+    protected CallbackQuery|null $callbackQuery = null;
+
+    protected Collection $data;
+
+    protected Keyboard $originalKeyboard;
+
     protected ?MenuItem $menuItem = null;
+
+    public function __construct()
+    {
+        $this->originalKeyboard = Keyboard::make();
+    }
+
     /**
      * @return void
      */
@@ -60,7 +84,7 @@ class YoungFolksHandler extends WebhookHandler
     /**
      * @return void
      */
-    protected function handleMessageYf(): void
+    protected function handleMessage(): void
     {
         assert($this->message?->chat() !== null);
 
@@ -107,7 +131,7 @@ class YoungFolksHandler extends WebhookHandler
     /**
      * @return void
      */
-    protected function handleCallbackQueryYf()
+    protected function handleCallbackQuery()
     {
         /** @var TelegraphChat $chat */
         $chat = $this->bot->chats()->firstOrNew([
@@ -188,7 +212,7 @@ class YoungFolksHandler extends WebhookHandler
         if ($this->request->has('message')) {
             /* @phpstan-ignore-next-line */
             $this->message = Message::fromArray($this->request->input('message'));
-            $this->handleMessageYf();
+            $this->handleMessage();
 
             return;
         }
@@ -196,7 +220,7 @@ class YoungFolksHandler extends WebhookHandler
         if ($this->request->has('channel_post')) {
             /* @phpstan-ignore-next-line */
             $this->message = Message::fromArray($this->request->input('channel_post'));
-            $this->handleMessageYf();
+            $this->handleMessage();
 
             return;
         }
@@ -205,12 +229,64 @@ class YoungFolksHandler extends WebhookHandler
         if ($this->request->has('callback_query')) {
             /* @phpstan-ignore-next-line */
             $this->callbackQuery = CallbackQuery::fromArray($this->request->input('callback_query'));
-            $this->handleCallbackQueryYf();
+            $this->handleCallbackQuery();
         }
 
         if ($this->request->has('inline_query')) {
             /* @phpstan-ignore-next-line */
             $this->handleInlineQuery(InlineQuery::fromArray($this->request->input('inline_query')));
         }
+    }
+
+    protected function handleUnknownCommand(Stringable $text): void
+    {
+        if ($this->message?->chat()?->type() === Chat::TYPE_PRIVATE) {
+            $command = (string) $text->after('/')->before(' ')->before('@');
+
+            if (config('telegraph.report_unknown_webhook_commands', true)) {
+                report(TelegramWebhookException::invalidCommand($command));
+            }
+
+            $this->chat->html("Unknown command")->send();
+        }
+    }
+
+    protected function handleChatMemberJoined(User $member): void
+    {
+        // .. do nothing
+    }
+
+    protected function handleChatMemberLeft(User $member): void
+    {
+        // .. do nothing
+    }
+
+    protected function handleChatMessage(Stringable $text): void
+    {
+        // .. do nothing
+    }
+
+    protected function replaceKeyboard(Keyboard $newKeyboard): void
+    {
+        $this->chat->replaceKeyboard($this->messageId, $newKeyboard)->send();
+    }
+
+    protected function deleteKeyboard(): void
+    {
+        $this->chat->deleteKeyboard($this->messageId)->send();
+    }
+
+    protected function reply(string $message): void
+    {
+        $this->bot->replyWebhook($this->callbackQueryId, $message)->send();
+    }
+
+    public function chatid(): void
+    {
+        $this->chat->html("Chat ID: {$this->chat->chat_id}")->send();
+    }
+
+    protected function handleInlineQuery(InlineQuery $inlineQuery): void
+    {
     }
 }
