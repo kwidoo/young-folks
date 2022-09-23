@@ -78,7 +78,7 @@ class YoungFolksHandler
     protected function canHandle($action): bool
     {
         $menuItem = MenuItem::bySlug($action)->first();
-        if ($menuItem) {
+        if ($menuItem !== null) {
             $this->menuItem = $menuItem;
             return true;
         }
