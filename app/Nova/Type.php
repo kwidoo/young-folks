@@ -46,8 +46,8 @@ class Type extends Resource
             ID::make()->sortable(),
             Boolean::make(__('Enabled'), 'enabled')->sortable(),
             Text::make(__('Name'), 'name')->sortable()->translatable([
-                'en' => 'English',
-                'ru' => 'Russian',
+                'ru' => 'Русский',
+                'lv' => 'Latviešu',
             ]),
         ];
     }
