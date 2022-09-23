@@ -77,14 +77,16 @@ class YoungFolksHandler
      */
     protected function canHandle($action): bool
     {
-        $this->menuItem = MenuItem::bySlug($action)->first();
-        if ($this->menuItem) {
+        $menuItem = MenuItem::bySlug($action)->first();
+        if ($menuItem) {
+            $this->menuItem = $menuItem;
             return true;
         }
         if (in_array($action, ['start', '/start'])) {
             $this->menuItem = MenuItem::whereIsRoot()->first();
             return true;
         }
+
         return false;
     }
 
