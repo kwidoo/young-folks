@@ -9,9 +9,13 @@ use DefStudio\Telegraph\Keyboard\Keyboard;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class YoungFolksHandler extends WebhookHandler
 {
+    /**
+     * @return void
+     */
     public function hi(): void
     {
         info('cbQ', [request()->all()]);
@@ -28,26 +32,20 @@ class YoungFolksHandler extends WebhookHandler
         $this->chat->html('Hi there1!')->send();
     }
 
-    public function handleInlineQuery(InlineQuery $inlineQuery): void
-    {
-        info('inline query', [$inlineQuery]);
-    }
-
-    public function two(): void
-    {
-        $this->chat->message('Two')->keyboard(Keyboard::make()->buttons([
-            Button::make('Two')->action('more')->param('id', '42')
-        ]))->send();
-    }
-
+    /**
+     * @param string $action
+     *
+     * @return bool
+     */
     protected function canHandle(string $action): bool
     {
         $parent = parent::canHandle($action);
-
-        // @todo add logic here
         return $parent;
     }
 
+    /**
+     * @return void
+     */
     private function handleMessage(): void
     {
         $this->extractMessageData();
@@ -60,11 +58,18 @@ class YoungFolksHandler extends WebhookHandler
 
         if ($text->startsWith('/')) {
             $this->handleCommand($text);
-        } else {
+        }
+
+        if (!$text->startsWith('/')) {
             $this->handleChatMessage($text);
         }
     }
 
+    /**
+     * @param Stringable $text
+     *
+     * @return void
+     */
     private function handleCommand(Stringable $text): void
     {
         $command = (string) $text->after('/')->before(' ')->before('@');
