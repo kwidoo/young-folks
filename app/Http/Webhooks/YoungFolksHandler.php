@@ -15,11 +15,11 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class YoungFolksHandler extends WebhookHandler
 {
 
-    protected ?MenuItem $menuItem;
+    protected ?MenuItem $menuItem = null;
     /**
      * @return void
      */
-    public function start(): void
+    public function start($parameter): void
     {
         if (!isset($this->menuItem)) {
             $this->menuItem = MenuItem::whereIsRoot()->first();
@@ -91,9 +91,11 @@ class YoungFolksHandler extends WebhookHandler
             return;
         }
         if (!method_exists($this, $command)) {
-            $this->start();
+            $this->start($parameter);
         }
 
-        $this->$command($parameter);
+        if (method_exists($this, $command)) {
+            $this->{$command}($parameter);
+        }
     }
 }
