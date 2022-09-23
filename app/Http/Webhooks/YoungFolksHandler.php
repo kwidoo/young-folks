@@ -50,7 +50,7 @@ class YoungFolksHandler extends WebhookHandler
     protected function canHandle(string $action): bool
     {
         $parent = parent::canHandle($action);
-        $this->menuItem = MenuItem::whereSlug($action)->orWhereSlug('/' . $action)->first();
+        $this->menuItem = MenuItem::whereSlug($action)->orWhere('slug', '/' . $action)->first();
         if ($this->menuItem) {
             return true;
         }
