@@ -85,8 +85,10 @@ class YoungFolksHandler extends WebhookHandler
 
         $action = Str::of($this->callbackQuery?->data()->get('action') ?? '');
 
-        if (!$this->canHandle($action)) {
-            throw new NotFoundHttpException();
+        if ($action !== '/start') {
+            if (!$this->canHandle($action)) {
+                throw new NotFoundHttpException();
+            }
         }
         $this->handleCommandYF($action);
     }
