@@ -27,5 +27,7 @@ class AppServiceProvider extends ServiceProvider
         Relation::morphMap([
             'user' => 'App\Models\User',
         ]);
+
+        app()->setLocale('ru');
     }
 }

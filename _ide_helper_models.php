@@ -61,28 +61,121 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * App\Models\TelegramUpdate
+ * App\Models\MenuItem
  *
  * @property int $id
- * @property string $update_id
- * @property array $message
+ * @property string $slug
+ * @property int $enabled
+ * @property int $type_id
+ * @property array $name
+ * @property array|null $description
+ * @property string|null $params
+ * @property int $sort_order
+ * @property int $_lft
+ * @property int $_rgt
+ * @property int|null $parent_id
+ * @property string|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read int $chat_id
- * @property-read string $command
- * @property-read bool $is_command
- * @method static \Illuminate\Database\Eloquent\Builder|TelegramUpdate isCommand()
- * @method static \Illuminate\Database\Eloquent\Builder|TelegramUpdate isStart()
- * @method static \Illuminate\Database\Eloquent\Builder|TelegramUpdate newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|TelegramUpdate newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|TelegramUpdate query()
- * @method static \Illuminate\Database\Eloquent\Builder|TelegramUpdate whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|TelegramUpdate whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|TelegramUpdate whereMessage($value)
- * @method static \Illuminate\Database\Eloquent\Builder|TelegramUpdate whereUpdateId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|TelegramUpdate whereUpdatedAt($value)
+ * @property-read \Kalnoy\Nestedset\Collection|MenuItem[] $children
+ * @property-read int|null $children_count
+ * @property-read mixed $formatted
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
+ * @property-read int|null $media_count
+ * @property-read MenuItem|null $parent
+ * @property-read \App\Models\Type $type
+ * @method static \Kalnoy\Nestedset\Collection|static[] all($columns = ['*'])
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem ancestorsAndSelf($id, array $columns = [])
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem ancestorsOf($id, array $columns = [])
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem applyNestedSetScope(?string $table = null)
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem countErrors()
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem d()
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem defaultOrder(string $dir = 'asc')
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem descendantsAndSelf($id, array $columns = [])
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem descendantsOf($id, array $columns = [], $andSelf = false)
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem findSimilarSlugs(string $attribute, array $config, string $slug)
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem fixSubtree($root)
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem fixTree($root = null)
+ * @method static \Kalnoy\Nestedset\Collection|static[] get($columns = ['*'])
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem getNodeData($id, $required = false)
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem getPlainNodeData($id, $required = false)
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem getTotalErrors()
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem hasChildren()
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem hasParent()
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem isBroken()
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem leaves(array $columns = [])
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem makeGap(int $cut, int $height)
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem moveNode($key, $position)
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem newModelQuery()
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem newQuery()
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem orWhereAncestorOf(bool $id, bool $andSelf = false)
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem orWhereDescendantOf($id)
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem orWhereNodeBetween($values)
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem orWhereNotDescendantOf($id)
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem ordered(string $direction = 'asc')
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem query()
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem rebuildSubtree($root, array $data, $delete = false)
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem rebuildTree(array $data, $delete = false, $root = null)
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem reversed()
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem root(array $columns = [])
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem whereAncestorOf($id, $andSelf = false, $boolean = 'and')
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem whereAncestorOrSelf($id)
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem whereCreatedAt($value)
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem whereDeletedAt($value)
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem whereDescendantOf($id, $boolean = 'and', $not = false, $andSelf = false)
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem whereDescendantOrSelf(string $id, string $boolean = 'and', string $not = false)
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem whereDescription($value)
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem whereEnabled($value)
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem whereId($value)
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem whereIsAfter($id, $boolean = 'and')
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem whereIsBefore($id, $boolean = 'and')
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem whereIsLeaf()
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem whereIsRoot()
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem whereLft($value)
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem whereName($value)
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem whereNodeBetween($values, $boolean = 'and', $not = false)
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem whereNotDescendantOf($id)
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem whereParams($value)
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem whereParentId($value)
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem whereRgt($value)
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem whereSlug($value)
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem whereSortOrder($value)
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem whereTypeId($value)
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem whereUpdatedAt($value)
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem withDepth(string $as = 'depth')
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem withUniqueSlugConstraints(\Illuminate\Database\Eloquent\Model $model, string $attribute, array $config, string $slug)
+ * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem withoutRoot()
  */
-	class TelegramUpdate extends \Eloquent {}
+	class MenuItem extends \Eloquent implements \Spatie\MediaLibrary\HasMedia, \Spatie\EloquentSortable\Sortable {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\Type
+ *
+ * @property int $id
+ * @property array $name
+ * @property string $slug
+ * @property int $enabled
+ * @property string|null $deleted_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Kalnoy\Nestedset\Collection|\App\Models\MenuItem[] $menuItems
+ * @property-read int|null $menu_items_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Type findSimilarSlugs(string $attribute, array $config, string $slug)
+ * @method static \Illuminate\Database\Eloquent\Builder|Type newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Type newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Type query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Type whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Type whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Type whereEnabled($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Type whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Type whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Type whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Type whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Type withUniqueSlugConstraints(\Illuminate\Database\Eloquent\Model $model, string $attribute, array $config, string $slug)
+ */
+	class Type extends \Eloquent {}
 }
 
 namespace App\Models{
