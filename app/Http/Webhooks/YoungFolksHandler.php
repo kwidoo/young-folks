@@ -79,6 +79,9 @@ class YoungFolksHandler extends WebhookHandler
         }
     }
 
+    /**
+     * @return void
+     */
     protected function handleCallbackQueryYf()
     {
         $this->extractCallbackQueryData();
@@ -87,9 +90,7 @@ class YoungFolksHandler extends WebhookHandler
             Log::debug('Telegraph webhook callback', $this->data->toArray());
         }
 
-        /** @var string $action */
-        $action = $this->callbackQuery?->data()->get('action') ?? '';
-        info(('action'), [$action]);
+        $action = Str::of($this->callbackQuery?->data()->get('action') ?? '');
         if (!$this->canHandle($action)) {
             throw new NotFoundHttpException();
         }
