@@ -52,7 +52,7 @@ class YoungFolksHandler
         if (!$this->menuItem) {
             throw new NotFoundHttpException();
         }
-        if ($this->menuItem->hasChildren()) {
+        if ($this->menuItem->children->isNotEmpty()) {
             $buttons = $this->menuItem->children()->get()->map(function (MenuItem $menuItem) {
                 return Button::make($menuItem
                     ->getTranslation('name', app()->getLocale()))
