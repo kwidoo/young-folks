@@ -6,6 +6,8 @@ use DefStudio\Telegraph\DTO\InlineQuery;
 use DefStudio\Telegraph\Handlers\WebhookHandler;
 use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
 
 class YoungFolksHandler extends WebhookHandler
@@ -44,5 +46,36 @@ class YoungFolksHandler extends WebhookHandler
 
         // @todo add logic here
         return $parent;
+    }
+
+    private function handleMessage(): void
+    {
+        $this->extractMessageData();
+
+        if (config('telegraph.debug_mode')) {
+            Log::debug('Telegraph webhook message', $this->data->toArray());
+        }
+
+        $text = Str::of($this->message?->text() ?? '');
+
+        if ($text->startsWith('/')) {
+            $this->handleCommand($text);
+        } else {
+            $this->handleChatMessage($text);
+        }
+    }
+
+    private function handleCommand(Stringable $text): void
+    {
+        $command = (string) $text->after('/')->before(' ')->before('@');
+        $parameter = (string) $text->after('@')->after(' ');
+
+        if (!$this->canHandle($command)) {
+            $this->handleUnknownCommand($text);
+
+            return;
+        }
+
+        $this->$command($parameter);
     }
 }
