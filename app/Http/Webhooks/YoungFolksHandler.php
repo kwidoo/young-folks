@@ -15,7 +15,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class YoungFolksHandler extends WebhookHandler
 {
 
-    protected MenuItem $menuItem;
+    protected ?MenuItem $menuItem;
     /**
      * @return void
      */
