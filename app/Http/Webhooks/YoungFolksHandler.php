@@ -2,6 +2,7 @@
 
 namespace App\Http\Webhooks;
 
+use App\Models\MenuItem;
 use DefStudio\Telegraph\DTO\InlineQuery;
 use DefStudio\Telegraph\Handlers\WebhookHandler;
 use DefStudio\Telegraph\Keyboard\Button;
@@ -13,18 +14,23 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class YoungFolksHandler extends WebhookHandler
 {
+
+    protected MenuItem $menuItem;
     /**
      * @return void
      */
-    public function hi(): void
+    public function start(): void
     {
-        info('cbQ', [request()->all()]);
-        $this->chat->message('hi there')->keyboard(Keyboard::make()->buttons([
-            Button::make('One')->action('two')->param('id', '42'),
-            Button::make('open')->url('https://test.it'),
-            Button::make('Web App')->webApp('https://web-app.test.it'),
-        ]))->send();
+        if (!isset($this->menuItem)) {
+            $this->menuItem = MenuItem::whereIsRoot()->first();
+        }
+        $buttons = $this->menuItem->children()->get()->map(function (MenuItem $menuItem) {
+            return Button::make($menuItem->name)->action('/' . $menuItem->slug);
+        })->toArray();
+
+        $this->chat->message($this->menuItem->description)->keyboard(Keyboard::make()->buttons($buttons))->send();
     }
+
 
     protected function handleChatMessage(Stringable $text): void
     {
@@ -40,6 +46,10 @@ class YoungFolksHandler extends WebhookHandler
     protected function canHandle(string $action): bool
     {
         $parent = parent::canHandle($action);
+        $this->menuItem = MenuItem::whereSlug(Str::replace('/', '', $action))->first();
+        if ($this->menuItem) {
+            return true;
+        }
         return $parent;
     }
 
@@ -79,6 +89,9 @@ class YoungFolksHandler extends WebhookHandler
             $this->handleUnknownCommand($text);
 
             return;
+        }
+        if (!method_exists($this, $command)) {
+            $this->start();
         }
 
         $this->$command($parameter);

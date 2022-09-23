@@ -85,4 +85,12 @@ class MenuItem extends Model implements HasMedia, Sortable
 
         return $instance;
     }
+
+    /**
+     * @return string
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
 }
