@@ -22,7 +22,7 @@ class TypesTableSeeder extends Seeder
             0 => 
             array (
                 'id' => 1,
-                'name' => '{"en":"Paid"}',
+                'name' => '{"ru":"Линк"}',
                 'slug' => 'paid',
                 'enabled' => 1,
                 'deleted_at' => NULL,
@@ -32,7 +32,7 @@ class TypesTableSeeder extends Seeder
             1 => 
             array (
                 'id' => 2,
-                'name' => '{"en":"Free"}',
+                'name' => '{"ru":"Описание"}',
                 'slug' => 'free',
                 'enabled' => 1,
                 'deleted_at' => NULL,
@@ -42,7 +42,7 @@ class TypesTableSeeder extends Seeder
             2 => 
             array (
                 'id' => 3,
-                'name' => '{"en":"Menu Item"}',
+                'name' => '{"ru":"Пункт меню"}',
                 'slug' => 'menu-item',
                 'enabled' => 1,
                 'deleted_at' => NULL,

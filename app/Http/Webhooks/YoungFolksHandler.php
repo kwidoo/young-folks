@@ -3,6 +3,7 @@
 namespace App\Http\Webhooks;
 
 use App\Models\MenuItem;
+use App\Models\Type;
 use DefStudio\Telegraph\DTO\CallbackQuery;
 use DefStudio\Telegraph\DTO\Chat;
 use DefStudio\Telegraph\DTO\InlineQuery;
@@ -54,10 +55,20 @@ class YoungFolksHandler
         }
         if ($this->menuItem->children->isNotEmpty()) {
             $buttons = $this->menuItem->children()->get()->map(function (MenuItem $menuItem) {
-                return Button::make($menuItem
-                    ->getTranslation('name', app()->getLocale()))
-                    ->action('/' . $menuItem->slug);
-            })->toArray();
+                if ($menuItem->type === Type::MENU_ITEM) {
+                    return Button::make($menuItem
+                        ->getTranslation('name', app()->getLocale()))
+                        ->action('/' . $menuItem->slug);
+                }
+                if ($menuItem->type === Type::LINK) {
+                    return Button::make($menuItem
+                        ->getTranslation('name', app()->getLocale()))
+                        ->url($menuItem->url);
+                }
+                if ($menuItem->type === Type::DESCRIPTION) {
+                    return null;
+                }
+            })->filter()->toArray();
             $this->chat->message($this->menuItem
                 ->getTranslation('description', app()->getLocale()))
                 ->keyboard(Keyboard::make()

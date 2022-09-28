@@ -15,6 +15,10 @@ class Type extends Model
     use Sluggable;
     use HasTranslations;
 
+    public const MENU_ITEM = 'menuItem';
+    public const LINK   = 'link';
+    public const DESCRIPTION = 'description';
+
     protected $fillable = [
         'name',
         'slug',

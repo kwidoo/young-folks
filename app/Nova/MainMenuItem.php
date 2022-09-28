@@ -16,14 +16,11 @@ use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Outl1ne\NovaSortable\Traits\HasSortableRows;
 
-class MenuItem extends Resource
+class MainMenuItem extends Resource
 {
     use HandlesTranslatable;
     use HasSortableRows;
 
-
-    //hide
-    public static $displayInNavigation = false;
     /**
      * The model the resource corresponds to.
      *
@@ -120,5 +117,22 @@ class MenuItem extends Resource
     public function actions(NovaRequest $request)
     {
         return [];
+    }
+
+    /**
+     * Build an "index" query for the given resource.
+     *
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        return $query->where('parent_id', 23);
+    }
+
+    public static function label()
+    {
+        return __('Menu items');
     }
 }
