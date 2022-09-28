@@ -69,15 +69,23 @@ class YoungFolksHandler
                     return null;
                 }
             })->filter()->toArray();
-            $this->chat->message($this->menuItem
+            $chat = $this->chat->message($this->menuItem
                 ->getTranslation('description', app()->getLocale()))
                 ->keyboard(Keyboard::make()
-                    ->buttons($buttons))->send();
+                    ->buttons($buttons));
+            if ($this->menuItem->getMedia()->isNotEmpty()) {
+                $chat->photo($this->menuItem->getFirstMedia()->getUrl());
+            }
+            $chat->send();
         }
 
         if ($this->menuItem->children->isEmpty()) {
-            $this->chat->message($this->menuItem
+            $chat = $this->chat->message($this->menuItem
                 ->getTranslation('description', app()->getLocale()))->send();
+            if ($this->menuItem->getMedia()->isNotEmpty()) {
+                $chat->photo($this->menuItem->getFirstMedia()->getUrl());
+            }
+            $chat->send();
         }
     }
 
