@@ -68,7 +68,7 @@ class YoungFolksHandler
                 if ($menuItem->type->id === 2) {
                     return null;
                 }
-            })->filter()->toArray();
+            })->toArray();
             $chat = $this->chat->message($this->menuItem
                 ->getTranslation('description', app()->getLocale()))
                 ->keyboard(Keyboard::make()
