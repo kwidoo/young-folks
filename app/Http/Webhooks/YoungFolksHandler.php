@@ -73,8 +73,8 @@ class YoungFolksHandler
                 ->getTranslation('description', app()->getLocale()))
                 ->keyboard(Keyboard::make()
                     ->buttons($buttons));
-            if ($this->menuItem->getMedia()->isNotEmpty()) {
-                $chat->photo($this->menuItem->getFirstMedia()->getUrl());
+            if ($this->menuItem->getMedia('menu_item')->isNotEmpty()) {
+                $chat->photo($this->menuItem->getMedia('menu_item')->first()?->getUrl());
             }
             $chat->send();
         }
@@ -82,8 +82,8 @@ class YoungFolksHandler
         if ($this->menuItem->children->isEmpty()) {
             $chat = $this->chat->message($this->menuItem
                 ->getTranslation('description', app()->getLocale()))->send();
-            if ($this->menuItem->getMedia()->isNotEmpty()) {
-                $chat->photo($this->menuItem->getFirstMedia()->getUrl());
+            if ($this->menuItem->getMedia('menu_item')->isNotEmpty()) {
+                $chat->photo($this->menuItem->getMedia('menu_item')->first()?->getUrl());
             }
             $chat->send();
         }
