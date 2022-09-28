@@ -55,17 +55,17 @@ class YoungFolksHandler
         }
         if ($this->menuItem->children->isNotEmpty()) {
             $buttons = $this->menuItem->children()->get()->map(function (MenuItem $menuItem) {
-                if ($menuItem->type === 3) {
+                if ($menuItem->type->id === 3) {
                     return Button::make($menuItem
                         ->getTranslation('name', app()->getLocale()))
                         ->action('/' . $menuItem->slug);
                 }
-                if ($menuItem->type === 1) {
+                if ($menuItem->type->id === 1) {
                     return Button::make($menuItem
                         ->getTranslation('name', app()->getLocale()))
                         ->url($menuItem->url);
                 }
-                if ($menuItem->type === 2) {
+                if ($menuItem->type->id === 2) {
                     return null;
                 }
             })->filter()->toArray();
