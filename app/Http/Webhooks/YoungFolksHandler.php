@@ -55,39 +55,23 @@ class YoungFolksHandler
         }
         if ($this->menuItem->children->isNotEmpty()) {
             $buttons = $this->menuItem->children()->get()->map(function (MenuItem $menuItem) {
-                if ($menuItem->type->id === 3) {
-                    return Button::make($menuItem
-                        ->getTranslation('name', app()->getLocale()))
-                        ->action('/' . $menuItem->slug);
-                }
-                if ($menuItem->type->id === 1) {
-                    return Button::make($menuItem
-                        ->getTranslation('name', app()->getLocale()))
-                        ->url($menuItem->url);
-                }
-                if ($menuItem->type->id === 2) {
-                    return null;
-                }
+                return Button::make($menuItem
+                    ->getTranslation('name', app()->getLocale()))
+                    ->action('/' . $menuItem->slug);
             })->toArray();
-            $chat = $this->chat->message($this->menuItem
+            $this->chat->message($this->menuItem
                 ->getTranslation('description', app()->getLocale()))
                 ->keyboard(Keyboard::make()
-                    ->buttons($buttons));
-            if ($this->menuItem->getMedia('menu_item')->isNotEmpty()) {
-                $chat->photo($this->menuItem->getMedia('menu_item')->first()?->getUrl());
-            }
-            $chat->send();
+                    ->buttons($buttons))->send();
         }
 
         if ($this->menuItem->children->isEmpty()) {
-            $chat = $this->chat->message($this->menuItem
+            $this->chat->message($this->menuItem
                 ->getTranslation('description', app()->getLocale()))->send();
-            if ($this->menuItem->getMedia('menu_item')->isNotEmpty()) {
-                $chat->photo($this->menuItem->getMedia('menu_item')->first()?->getUrl());
-            }
-            $chat->send();
         }
     }
+
+
 
     /**
      * @param string $action
