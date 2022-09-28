@@ -14,6 +14,7 @@ use Cviebrock\EloquentSluggable\Services\SlugService;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\Markdown;
 use Outl1ne\NovaSortable\Traits\HasSortableRows;
 
 class MenuItem extends Resource
@@ -69,7 +70,7 @@ class MenuItem extends Resource
             ]),
             BelongsTo::make(__('Parent'), 'parent', MenuItem::class)->nullable()->sortable(),
 
-            Textarea::make(__('Description'))->translatable([
+            Markdown::make(__('Description'))->translatable([
                 'ru' => 'Русский',
                 'lv' => 'Latviešu',
             ]),
