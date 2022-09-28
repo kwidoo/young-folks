@@ -55,29 +55,37 @@ class YoungFolksHandler
         }
         if ($this->menuItem->children->isNotEmpty()) {
             $buttons = $this->menuItem->children()->get()->map(function (MenuItem $menuItem) {
-                if ($menuItem->type === Type::MENU_ITEM) {
+                if ($menuItem->type === 3) {
                     return Button::make($menuItem
                         ->getTranslation('name', app()->getLocale()))
                         ->action('/' . $menuItem->slug);
                 }
-                if ($menuItem->type === Type::LINK) {
+                if ($menuItem->type === 1) {
                     return Button::make($menuItem
                         ->getTranslation('name', app()->getLocale()))
                         ->url($menuItem->url);
                 }
-                if ($menuItem->type === Type::DESCRIPTION) {
+                if ($menuItem->type === 2) {
                     return null;
                 }
             })->filter()->toArray();
-            $this->chat->message($this->menuItem
+            $chat = $this->chat->message($this->menuItem
                 ->getTranslation('description', app()->getLocale()))
                 ->keyboard(Keyboard::make()
-                    ->buttons($buttons))->send();
+                    ->buttons($buttons));
+            if ($this->menuItem->getMedia()->isNotEmpty()) {
+                $chat->photo($this->menuItem->getFirstMedia()->getUrl());
+            }
+            $chat->send();
         }
 
         if ($this->menuItem->children->isEmpty()) {
-            $this->chat->message($this->menuItem
+            $chat = $this->chat->message($this->menuItem
                 ->getTranslation('description', app()->getLocale()))->send();
+            if ($this->menuItem->getMedia()->isNotEmpty()) {
+                $chat->photo($this->menuItem->getFirstMedia()->getUrl());
+            }
+            $chat->send();
         }
     }
 
