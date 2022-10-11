@@ -13,8 +13,6 @@ services:
         volumes:
             - .docker/nginx:/etc/nginx/conf.d
             - .:/var/www
-        networks:
-            - proxy-network
     php-yf:
         build:
             context: .docker/php
@@ -24,8 +22,6 @@ services:
         volumes:
             - ./:/var/www/
             - .docker/php/www.conf:/usr/local/etc/php-fpm.d/www.conf
-        networks:
-            - proxy-network
 networks:
     default:
         external:
