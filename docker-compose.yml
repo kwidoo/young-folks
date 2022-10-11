@@ -1,6 +1,6 @@
 version: "3.8"
 services:
-    balancer:
+    nginx-yf:
         image: nginx:alpine
         restart: unless-stopped
         hostname: app-yf
