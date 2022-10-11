@@ -19,11 +19,7 @@ services:
             dockerfile: Dockerfile
         hostname: php-yf
         restart: unless-stopped
-        environment:
-            - DB_DATABASE=${DB_DATABASE}
-            - DB_HOST=${DB_HOST}
-            - DB_USERNAME=${DB_USERNAME}
-            - DB_PASSWORD=${DB_PASSWORD}
+
         volumes:
             - ./:/var/www/
             - .docker/php/www.conf:/usr/local/etc/php-fpm.d/www.conf

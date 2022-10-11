@@ -31,7 +31,7 @@ RUN apt-get update && apt-get install -y \
 
 # Install PHP modules
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
-RUN docker-php-ext-install gd zip opcache mysqli pdo_mysql exif intl
+RUN docker-php-ext-install gd zip mysqli pdo_mysql exif intl
 
 # Update PHP config
 RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini
