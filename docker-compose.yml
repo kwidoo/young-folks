@@ -1,0 +1,29 @@
+version: "3.8"
+services:
+    balancer:
+        image: nginx:alpine
+        restart: unless-stopped
+        hostname: app-yf
+        depends_on:
+            - php-yf
+        environment:
+            - APP_URL=${APP_URL}
+            - NGINX_HOST=${NGINX_HOST}
+            - NGINX_PORT=${NGINX_PORT}
+        volumes:
+            - .docker/nginx:/etc/nginx/conf.d
+            - .:/var/www
+    php-yf:
+        build:
+            context: .docker/php
+            dockerfile: Dockerfile
+        hostname: php-yf
+        restart: unless-stopped
+        environment:
+            - DB_DATABASE=${DB_DATABASE}
+            - DB_HOST=${DB_HOST}
+            - DB_USERNAME=${DB_USERNAME}
+            - DB_PASSWORD=${DB_PASSWORD}
+        volumes:
+            - ./:/var/www/
+            - .docker/php/www.conf:/usr/local/etc/php-fpm.d/www.conf
