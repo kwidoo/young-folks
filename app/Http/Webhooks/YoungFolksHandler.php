@@ -55,7 +55,7 @@ class YoungFolksHandler
         }
         $backButton = null;
         if (!$this->menuItem->isRoot()) {
-            $backButton = Button::make('Back')
+            $backButton = Button::make(__('Back'))
                 ->action('/' . $this->menuItem->parent->slug);
         }
         if ($this->menuItem->children->isNotEmpty()) {
