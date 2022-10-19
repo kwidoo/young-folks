@@ -53,12 +53,21 @@ class YoungFolksHandler
         if (!$this->menuItem) {
             throw new NotFoundHttpException();
         }
+        $backButton = null;
+        if ($this->menuItem->hasParent()) {
+            $backButton = Button::make($this->menuItem->parent
+                ->getTranslation('name', app()->getLocale()))
+                ->action('/' . $this->menuItem->parent->slug);
+        }
         if ($this->menuItem->children->isNotEmpty()) {
             $buttons = $this->menuItem->children()->get()->map(function (MenuItem $menuItem) {
                 return Button::make($menuItem
                     ->getTranslation('name', app()->getLocale()))
                     ->action('/' . $menuItem->slug);
             })->toArray();
+            if ($backButton) {
+                $buttons[] = $backButton;
+            }
             $this->chat->message($this->menuItem
                 ->getTranslation('description', app()->getLocale()))
                 ->keyboard(Keyboard::make()
@@ -66,8 +75,12 @@ class YoungFolksHandler
         }
 
         if ($this->menuItem->children->isEmpty()) {
-            $this->chat->message($this->menuItem
-                ->getTranslation('description', app()->getLocale()))->send();
+            $chat = $this->chat->message($this->menuItem
+                ->getTranslation('description', app()->getLocale()));
+            if ($backButton) {
+                $chat = $chat->keyboard(Keyboard::make()->buttons([$backButton]));
+            }
+            $chat->send();
         }
     }
 
