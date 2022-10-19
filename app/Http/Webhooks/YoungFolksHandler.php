@@ -55,8 +55,7 @@ class YoungFolksHandler
         }
         $backButton = null;
         if ($this->menuItem->hasParent()) {
-            $backButton = Button::make($this->menuItem->parent
-                ->getTranslation('name', app()->getLocale()))
+            $backButton = Button::make('Back')
                 ->action('/' . $this->menuItem->parent->slug);
         }
         if ($this->menuItem->children->isNotEmpty()) {
