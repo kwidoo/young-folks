@@ -54,7 +54,7 @@ class YoungFolksHandler
             throw new NotFoundHttpException();
         }
         $backButton = null;
-        if ($this->menuItem->hasParent()) {
+        if (!$this->menuItem->isRoot()) {
             $backButton = Button::make('Back')
                 ->action('/' . $this->menuItem->parent->slug);
         }
