@@ -151,6 +151,28 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\MyFitness
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|MyFitness newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|MyFitness newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|MyFitness query()
+ */
+	class MyFitness extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\Training
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|Training newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Training newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Training query()
+ */
+	class Training extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Type
  *
  * @property int $id

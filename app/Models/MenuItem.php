@@ -17,6 +17,8 @@ use Kalnoy\Nestedset\NodeTrait;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 
+/** @property int $parent_id */
+
 class MenuItem extends Model implements HasMedia, Sortable
 {
     use HasFactory;

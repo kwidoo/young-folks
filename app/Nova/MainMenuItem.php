@@ -124,8 +124,8 @@ class MainMenuItem extends Resource
      * Build an "index" query for the given resource.
      *
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param  \Illuminate\Database\Eloquent\Builder<\App\Models\MenuItem>  $query
+     * @return \Illuminate\Database\Eloquent\Builder<\App\Models\MenuItem>
      */
     public static function indexQuery(NovaRequest $request, $query)
     {
