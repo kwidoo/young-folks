@@ -84,8 +84,13 @@ class MenuItem extends Model implements HasMedia, Sortable
     {
         return [
             'slug' => [
-                'source' => ['name', 'parent.slug'],
+                'source' => ['name'],
+                'onUpdate' => true,
+                'separator' => '_',
+                'maxLength' => 20,
+
             ],
+
         ];
     }
 
