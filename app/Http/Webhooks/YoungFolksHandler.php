@@ -59,7 +59,7 @@ class YoungFolksHandler
                 ->action('/' . $this->menuItem->parent->slug);
         }
         if ($this->menuItem->children->isNotEmpty()) {
-            $buttons = $this->menuItem->children()->orderBy('sort_order', 'desc')->get()->map(function (MenuItem $menuItem) {
+            $buttons = $this->menuItem->children()->isEnabled()->orderBy('sort_order', 'desc')->get()->map(function (MenuItem $menuItem) {
                 return Button::make($menuItem
                     ->getTranslation('name', app()->getLocale()))
                     ->action('/' . $menuItem->slug);

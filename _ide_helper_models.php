@@ -19,9 +19,9 @@ namespace App\Models{
  * @property string|null $name
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Chat[] $chats
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Chat> $chats
  * @property-read int|null $chats_count
- * @method static \DefStudio\Telegraph\Database\Factories\TelegraphBotFactory factory(...$parameters)
+ * @method static \DefStudio\Telegraph\Database\Factories\TelegraphBotFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Bot newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Bot newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Bot query()
@@ -45,7 +45,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Bot $bot
- * @method static \DefStudio\Telegraph\Database\Factories\TelegraphChatFactory factory(...$parameters)
+ * @method static \DefStudio\Telegraph\Database\Factories\TelegraphChatFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Chat newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Chat newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Chat query()
@@ -63,6 +63,7 @@ namespace App\Models{
 /**
  * App\Models\MenuItem
  *
+ * @property int $parent_id
  * @property int $id
  * @property string $slug
  * @property int $enabled
@@ -73,17 +74,16 @@ namespace App\Models{
  * @property int $sort_order
  * @property int $_lft
  * @property int $_rgt
- * @property int|null $parent_id
  * @property string|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Kalnoy\Nestedset\Collection|MenuItem[] $children
+ * @property-read \Kalnoy\Nestedset\Collection<int, MenuItem> $children
  * @property-read int|null $children_count
- * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Spatie\MediaLibrary\MediaCollections\Models\Media> $media
  * @property-read int|null $media_count
  * @property-read MenuItem|null $parent
  * @property-read \App\Models\Type $type
- * @method static \Kalnoy\Nestedset\Collection|static[] all($columns = ['*'])
+ * @method static \Kalnoy\Nestedset\Collection<int, static> all($columns = ['*'])
  * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem ancestorsAndSelf($id, array $columns = [])
  * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem ancestorsOf($id, array $columns = [])
  * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem applyNestedSetScope(?string $table = null)
@@ -93,10 +93,11 @@ namespace App\Models{
  * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem defaultOrder(string $dir = 'asc')
  * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem descendantsAndSelf($id, array $columns = [])
  * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem descendantsOf($id, array $columns = [], $andSelf = false)
+ * @method static \Database\Factories\MenuItemFactory factory($count = null, $state = [])
  * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem findSimilarSlugs(string $attribute, array $config, string $slug)
  * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem fixSubtree($root)
  * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem fixTree($root = null)
- * @method static \Kalnoy\Nestedset\Collection|static[] get($columns = ['*'])
+ * @method static \Kalnoy\Nestedset\Collection<int, static> get($columns = ['*'])
  * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem getNodeData($id, $required = false)
  * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem getPlainNodeData($id, $required = false)
  * @method static \Kalnoy\Nestedset\QueryBuilder|MenuItem getTotalErrors()
@@ -151,28 +152,6 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * App\Models\MyFitness
- *
- * @method static \Illuminate\Database\Eloquent\Builder|MyFitness newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|MyFitness newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|MyFitness query()
- */
-	class MyFitness extends \Eloquent {}
-}
-
-namespace App\Models{
-/**
- * App\Models\Training
- *
- * @method static \Illuminate\Database\Eloquent\Builder|Training newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Training newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Training query()
- */
-	class Training extends \Eloquent {}
-}
-
-namespace App\Models{
-/**
  * App\Models\Type
  *
  * @property int $id
@@ -182,7 +161,7 @@ namespace App\Models{
  * @property string|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Kalnoy\Nestedset\Collection|\App\Models\MenuItem[] $menuItems
+ * @property-read \Kalnoy\Nestedset\Collection<int, \App\Models\MenuItem> $menuItems
  * @property-read int|null $menu_items_count
  * @method static \Illuminate\Database\Eloquent\Builder|Type findSimilarSlugs(string $attribute, array $config, string $slug)
  * @method static \Illuminate\Database\Eloquent\Builder|Type newModelQuery()
@@ -214,18 +193,18 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\Permission\Models\Permission[] $permissions
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Permission> $permissions
  * @property-read int|null $permissions_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\Permission\Models\Role[] $roles
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Role> $roles
  * @property-read int|null $roles_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Sanctum\PersonalAccessToken[] $tokens
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
  * @property-read int|null $tokens_count
- * @method static \Database\Factories\UserFactory factory(...$parameters)
+ * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
- * @method static \Illuminate\Database\Query\Builder|User onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|User onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|User permission($permissions)
  * @method static \Illuminate\Database\Eloquent\Builder|User query()
  * @method static \Illuminate\Database\Eloquent\Builder|User role($roles, $guard = null)
@@ -239,8 +218,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|User withTrashed()
- * @method static \Illuminate\Database\Query\Builder|User withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|User withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|User withoutTrashed()
  */
 	class User extends \Eloquent {}
 }

@@ -40,6 +40,23 @@ class MenuItem extends Model implements HasMedia, Sortable
     ];
 
     /**
+     * @var string[]
+     */
+    protected $fillable = [
+        'name',
+        'description',
+        'slug',
+        'enabled',
+        'parent_id',
+        'type_id',
+        'sort_order',
+    ];
+
+    protected $casts = [
+        'enabled' => 'boolean',
+    ];
+
+    /**
      * @var array<string,string|bool>
      */
     public $sortable = [
@@ -60,6 +77,16 @@ class MenuItem extends Model implements HasMedia, Sortable
         $slug = Str::of($slug);
         $slug = $slug->startsWith('/') ? $slug->substr(1) : $slug;
         $query->where('slug', $slug);
+    }
+
+    /**
+     * @param Builder $query
+     *
+     * @return void
+     */
+    public function scopeIsEnabled(Builder $query)
+    {
+        $query->where('enabled', true);
     }
 
     /**
