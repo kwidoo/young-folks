@@ -6,6 +6,8 @@ services:
         hostname: app-yf
         depends_on:
             - php-yf
+        networks:
+            - proxy-network
         environment:
             - APP_URL=${APP_URL}
             - NGINX_HOST=${NGINX_HOST}
@@ -19,10 +21,12 @@ services:
             dockerfile: Dockerfile
         hostname: php-yf
         restart: unless-stopped
+        networks:
+            - proxy-network
         volumes:
             - ./:/var/www/
             - .docker/php/www.conf:/usr/local/etc/php-fpm.d/www.conf
 networks:
     default:
         external:
-            name: nginx-proxy_default
+            name: proxy-network
