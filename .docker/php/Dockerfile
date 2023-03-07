@@ -1,5 +1,4 @@
 FROM php:8.1.8-fpm AS laravel
-MAINTAINER Oleg Pashkovsky
 
 ENV PHP_MEMORY_LIMIT 512M
 ENV MAX_UPLOAD 50M
@@ -11,7 +10,7 @@ ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/do
 
 # Install php extensions
 RUN chmod +x /usr/local/bin/install-php-extensions && sync && \
-    install-php-extensions mbstring pdo_mysql zip exif pcntl gd memcached
+    install-php-extensions mbstring pdo_mysql zip exif pcntl gd memcached redis
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
@@ -33,14 +32,11 @@ RUN apt-get update && apt-get install -y \
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 RUN docker-php-ext-install gd zip mysqli pdo_mysql exif intl
 
-# Update PHP config
 RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini
 COPY www.conf /usr/local/etc/php-fpm.d/
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
-
-
 
 RUN rm -rf /var/www/html
 WORKDIR /var/www

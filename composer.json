@@ -35,6 +35,7 @@
         "stepanenko3/nova-settings": "^1.0",
         "titasgailius/search-relations": "^2.0",
         "vmitchell85/nova-links": "^1.1",
+        "predis/predis": "^1.1",
         "whitecube/nova-flexible-content": "^1.0"
     },
     "require-dev": {
